@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Sidemenu from "../_components/Sidemenu/Sidemenu";
+import Sidemenu from "../_components/Sidemenu";
 
 export const metadata: Metadata = {
   title: {
