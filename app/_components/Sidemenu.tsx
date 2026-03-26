@@ -3,7 +3,7 @@
 import { NavLinks } from "@/app/_utils/constants";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../../public/logo.png";
+import logo from "../../public/logo.png";
 import { usePathname } from "next/navigation";
 
 const Sidemenu = () => {
