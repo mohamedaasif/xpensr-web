@@ -23,3 +23,8 @@ export const NavLinks = [
 
   { name: "Settings", href: "/settings", icon: Settings },
 ];
+
+export type ApiError = {
+  message?: string;
+  status?: number;
+};
