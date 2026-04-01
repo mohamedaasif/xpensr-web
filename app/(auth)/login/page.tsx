@@ -25,8 +25,8 @@ export default function Login() {
   );
 
   const schema = z.object({
-    email: z.email(),
-    password: z.string(),
+    email: z.email().nonempty("Email is required"),
+    password: z.string().nonempty("Password is required"),
   });
 
   const {
@@ -46,6 +46,7 @@ export default function Login() {
       loginUser({ emailId: email, password: password }),
     )
       .then((res) => {
+        localStorage.setItem("userData", JSON.stringify(res.payload.data));
         router.replace("/dashboard");
       })
       .catch((err) => {
@@ -77,7 +78,7 @@ export default function Login() {
               <label className="text-sm text-gray-600">Email</label>
               <input
                 type="email"
-                {...register("email", { required: "Email is required" })}
+                {...register("email")}
                 placeholder="Enter Email"
                 className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
@@ -98,9 +99,7 @@ export default function Login() {
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
-                  {...register("password", {
-                    required: "Password is required",
-                  })}
+                  {...register("password")}
                   placeholder="Enter Password"
                   className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
