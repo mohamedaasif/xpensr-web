@@ -1,5 +1,14 @@
+import PageTitle from "@/app/_components/PageTitle";
+
 const Budgets = () => {
-  return <div>Budget</div>;
+  return (
+    <div>
+      <PageTitle
+        title={"Budgets"}
+        subtitle="Here's what's happening with your finances today."
+      />
+    </div>
+  );
 };
 
 export default Budgets;
