@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 const PageTitle = ({
   title,
   subtitle,
@@ -7,8 +9,13 @@ const PageTitle = ({
   title: string;
   subtitle: string;
 }) => {
-  let userName: any = localStorage?.getItem("userData");
-  userName = JSON.parse(userName)?.firstName;
+  const [userName, setUserName] = useState<string>("");
+
+  useEffect(() => {
+    let userName: any = localStorage?.getItem("userData");
+    userName = JSON.parse(userName)?.firstName;
+    setUserName(userName);
+  }, []);
 
   return (
     <div className="ml-4 mt-4">
