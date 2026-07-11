@@ -20,7 +20,7 @@ const PageTitle = ({
   return (
     <div className="ml-4 mt-4">
       <h1 className="text-xl font-semibold">
-        {title?.replace("JohnXXX", userName)}
+        {title?.replace("username", userName)}
       </h1>
       <p className="text-sm text-gray-500">{subtitle}</p>
     </div>
