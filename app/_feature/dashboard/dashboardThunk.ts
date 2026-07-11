@@ -7,7 +7,7 @@ export const dashboardSummary = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await getDashboardSummary();
-      return res?.data;
+      return res?.data?.data;
     } catch (err) {
       const error = err as AxiosError<{
         message: string;
@@ -25,7 +25,7 @@ export const recentTransaction = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await getRecentTransactions();
-      return res?.data;
+      return res?.data?.data;
     } catch (err) {
       const error = err as AxiosError<{
         message: string;
