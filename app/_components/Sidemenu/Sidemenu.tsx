@@ -9,15 +9,22 @@ import styles from "./Sidemenu.module.css";
 import { useEffect, useState } from "react";
 import { LogOut } from "lucide-react";
 
+interface User {
+  firstName?: string;
+  lastName?: string;
+  emailId?: string;
+}
+
 const Sidemenu = () => {
   const path = usePathname();
 
-  const [user, setUser] = useState<any>({});
+  const [user, setUser] = useState<User>({});
 
   useEffect(() => {
-    let user: any = localStorage?.getItem("userData");
-    user = JSON.parse(user);
-    setUser(user);
+    let userData: any = localStorage?.getItem("userData");
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
   }, []);
 
   return (
@@ -62,14 +69,14 @@ const Sidemenu = () => {
 
       <div>
         <div className={styles["sb-divider"] + " my-1"} />
-        <div className="flex gap-3 items-center py-4 pl-4">
+        <div className="flex gap-2 items-center py-4 pl-4">
           <div className="flex gap-2">
             <div className={styles["sb-av"]}>
-              {user?.firstName?.charAt(0) + user?.lastName?.charAt(0)}
+              {(user.firstName?.[0] ?? "") + (user.lastName?.[0] ?? "")}
             </div>
-            <div className="">
+            <div>
               <p className={styles["sb-uname"]}>
-                {user?.firstName + " " + user?.lastName}
+                {[user.firstName, user.lastName].filter(Boolean).join(" ")}
               </p>
               <p className={styles["sb-uemail"]}>{user?.emailId}</p>
             </div>

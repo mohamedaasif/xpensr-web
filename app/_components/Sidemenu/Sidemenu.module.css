@@ -71,6 +71,7 @@
   flex-shrink: 0;
   transition: all 0.15s;
   padding: 2px;
+  margin-right: 5px;
 }
 .logout-btn:hover {
   background: rgba(220, 38, 38, 0.25);

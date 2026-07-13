@@ -3,7 +3,7 @@ import DashboardClient from "./Dashboard";
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className="w-full">
       <PageTitle
         title={`Hello, username`}
         subtitle="Here's what's happening with your finances today."

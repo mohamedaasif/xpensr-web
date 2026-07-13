@@ -6,27 +6,24 @@ import {
 } from "@/app/_feature/dashboard/dashboardThunk";
 import { useAppDispatch, useAppSelector } from "@/app/_feature/hooks";
 import { useEffect } from "react";
+import RecentTransaction from "./RecentTransaction";
 
 const DashboardClient = () => {
   const dispatch = useAppDispatch();
 
-  const {
-    summaryData,
-    summaryLoading,
-    recentTransactionData,
-    recentTransactionLoading,
-  } = useAppSelector((state) => state.dashboard);
+  const { summaryData, summaryLoading } = useAppSelector(
+    (state) => state.dashboard,
+  );
 
   useEffect(() => {
     dispatch(dashboardSummary());
     dispatch(recentTransaction());
   }, []);
 
-  console.log("summaryData", summaryData);
-  console.log("recentTransactionData", recentTransactionData);
   return (
-    <div>
+    <div className="p-5">
       <div></div>
+      <RecentTransaction />
     </div>
   );
 };
