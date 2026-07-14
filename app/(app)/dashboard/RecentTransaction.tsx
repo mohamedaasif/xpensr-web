@@ -1,3 +1,4 @@
+"use client";
 import Table from "@/app/_components/Table/Table";
 import styles from "./RecentTransaction.module.css";
 import { useAppSelector } from "@/app/_feature/hooks";

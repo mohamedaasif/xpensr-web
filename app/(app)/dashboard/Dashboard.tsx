@@ -7,13 +7,10 @@ import {
 import { useAppDispatch, useAppSelector } from "@/app/_feature/hooks";
 import { useEffect } from "react";
 import RecentTransaction from "./RecentTransaction";
+import DashboardSummary from "./DashboardSummary";
 
 const DashboardClient = () => {
   const dispatch = useAppDispatch();
-
-  const { summaryData, summaryLoading } = useAppSelector(
-    (state) => state.dashboard,
-  );
 
   useEffect(() => {
     dispatch(dashboardSummary());
@@ -22,7 +19,7 @@ const DashboardClient = () => {
 
   return (
     <div className="p-5">
-      <div></div>
+      <DashboardSummary />
       <RecentTransaction />
     </div>
   );

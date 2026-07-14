@@ -1,0 +1,64 @@
+.stat-card {
+  flex: 1;
+  background: var(--color-card);
+  border: 0.5px solid var(--color-bdr);
+  border-radius: 12px;
+  padding: 14px 16px;
+  overflow: hidden;
+  position: relative;
+}
+.stat-stripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+.inc {
+  background: var(--color-pos);
+}
+.exp {
+  background: var(--color-neg);
+}
+.t-bal {
+  background: var(--color-pos-text);
+}
+.sav {
+  background: var(--color-ind);
+}
+
+.stat-ico {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 9px;
+}
+.inc-ico {
+  background-color: var(--color-pos-bg);
+}
+.exp-ico {
+  background-color: var(--color-neg-bg);
+}
+.t-bal-ico {
+  background-color: var(--color-pos-bg);
+}
+.sav-ico {
+  background-color: var(--color-ind-bg);
+}
+
+.stat-val {
+  font-family: var(--font-mono);
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--color-ink);
+  letter-spacing: -0.5px;
+}
+.stat-lbl {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--color-ink-3);
+  margin-top: 3px;
+}

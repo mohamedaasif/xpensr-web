@@ -7,6 +7,10 @@ interface DashboardSummary {
   totalBalance: number;
   totalIncome: number;
   totalExpense: number;
+  currentMonthIncome: number;
+  currentMonthExpense: number;
+  netSavings: number;
+  savingsRate: number;
 }
 
 interface DashboardState {
