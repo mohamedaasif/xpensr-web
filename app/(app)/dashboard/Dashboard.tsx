@@ -4,7 +4,7 @@ import {
   dashboardSummary,
   recentTransaction,
 } from "@/app/_feature/dashboard/dashboardThunk";
-import { useAppDispatch, useAppSelector } from "@/app/_feature/hooks";
+import { useAppDispatch } from "@/app/_feature/hooks";
 import { useEffect } from "react";
 import RecentTransaction from "./RecentTransaction";
 import DashboardSummary from "./DashboardSummary";
