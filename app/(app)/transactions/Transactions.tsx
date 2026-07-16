@@ -1,4 +1,5 @@
 "use client";
+import Header from "@/app/_components/Header/Header";
 import Table from "@/app/_components/Table/Table";
 import { useAppDispatch, useAppSelector } from "@/app/_feature/hooks";
 import { getAllTransactions } from "@/app/_feature/transaction/transactionThunk";
@@ -13,9 +14,20 @@ const TransactionClient = () => {
   useEffect(() => {
     dispatch(getAllTransactions());
   }, []);
+
+  const handleAddTransaction = () => {
+    console.log("handleAddTransaction");
+  };
   return (
-    <div className="p-5">
-      <Table data={transactions} loading={loading} />
+    <div>
+      <Header
+        title={"Transactions"}
+        onClickHandler={handleAddTransaction}
+        buttonText="Add transaction"
+      />
+      <div className="p-5">
+        <Table data={transactions} loading={loading} />
+      </div>
     </div>
   );
 };

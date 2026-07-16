@@ -1,0 +1,55 @@
+.hdr {
+  background: var(--color-card);
+  border-bottom: 0.5px solid var(--color-bdr);
+  padding: 0 22px;
+  flex-shrink: 0;
+}
+.hdr-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  gap: 12px;
+}
+.hdr-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-ink);
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+.hdr-acts {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-s {
+  background: var(--color-card);
+  color: var(--color-ink-2);
+  border: 0.5px solid var(--color-bdr-2);
+  border-radius: 8px;
+  padding: 6px 11px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 32px;
+}
+.btn-p {
+  background: var(--color-ind);
+  color: var(--color-sb-text);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 13px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 32px;
+}

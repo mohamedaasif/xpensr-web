@@ -1,12 +1,9 @@
-import PageTitle from "@/app/_components/PageTitle";
+import SettingsClient from "./Settings";
 
 const Settings = () => {
   return (
-    <div>
-      <PageTitle
-        title={"Settings"}
-        subtitle="Manage your preferences and account settings."
-      />
+    <div className="w-full">
+      <SettingsClient />
     </div>
   );
 };
