@@ -1,11 +1,12 @@
-import { useAppSelector } from "@/app/_feature/hooks";
 import styles from "./DashboardSummary.module.css";
 import { Landmark, PiggyBank, TrendingDown, TrendingUp } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
-const DashboardSummary = () => {
-  const { summaryData, summaryLoading } = useAppSelector(
-    (state) => state.dashboard,
-  );
+import { getDashboardSummary } from "@/app/_lib/services/dashboard.service";
+
+const DashboardSummary = async () => {
+  let summaryData = await getDashboardSummary();
+  summaryData = summaryData?.data;
+
   return (
     <div className="flex gap-2 my-3">
       <div className={styles["stat-card"]}>

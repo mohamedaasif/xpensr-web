@@ -132,6 +132,8 @@
   /* BORDER WIDTH */
   --bdr-width: 0.5px;
   --bdr-width-sb: 1px;
+
+  --color-skeleton: #ece9e3;
 }
 
 /* UTILITY CLASSES */

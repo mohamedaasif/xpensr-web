@@ -1,9 +1,19 @@
-import DashboardClient from "./Dashboard";
+import { Suspense } from "react";
+import DashboardHeader from "./DashboardHeader";
+import DashboardSummary from "./DashboardSummary";
+import RecentTransaction from "./RecentTransaction";
+import DashboardSummarySkeleton from "./DashboardSummarySkeleton";
 
 const Dashboard = () => {
   return (
     <div className="w-full">
-      <DashboardClient />
+      <DashboardHeader />
+      <div className="p-5">
+        <Suspense fallback={<DashboardSummarySkeleton />}>
+          <DashboardSummary />
+        </Suspense>
+        <RecentTransaction />
+      </div>
     </div>
   );
 };

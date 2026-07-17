@@ -1,12 +1,10 @@
-"use client";
 import Table from "@/app/_components/Table/Table";
 import styles from "./RecentTransaction.module.css";
-import { useAppSelector } from "@/app/_feature/hooks";
+import { getRecentTransactions } from "@/app/_lib/services/dashboard.service";
 
-const RecentTransaction = () => {
-  const { recentTransactionData, recentTransactionLoading } = useAppSelector(
-    (state) => state.dashboard,
-  );
+const RecentTransaction = async () => {
+  let recentTransactionData = await getRecentTransactions();
+  recentTransactionData = recentTransactionData?.data;
   return (
     <>
       <div className={styles["sec-row"]}>
@@ -18,7 +16,7 @@ const RecentTransaction = () => {
           View all ↗
         </button>
       </div>
-      <Table data={recentTransactionData} loading={recentTransactionLoading} />
+      <Table data={recentTransactionData} />
     </>
   );
 };
