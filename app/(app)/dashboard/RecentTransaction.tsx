@@ -1,6 +1,7 @@
 import Table from "@/app/_components/Table/Table";
 import styles from "./RecentTransaction.module.css";
 import { getRecentTransactions } from "@/app/_lib/services/dashboard.service";
+import Link from "next/link";
 
 const RecentTransaction = async () => {
   let recentTransactionData = await getRecentTransactions();
@@ -9,12 +10,9 @@ const RecentTransaction = async () => {
     <>
       <div className={styles["sec-row"]}>
         <span className={styles["sec-title"]}>Recent transactions</span>
-        <button
-          className={styles["sec-link"]}
-          // onclick="nav('txns',document.querySelectorAll('.nav-it')[1])"
-        >
+        <Link className={styles["sec-link"]} href={"/transactions"}>
           View all ↗
-        </button>
+        </Link>
       </div>
       <Table data={recentTransactionData} />
     </>
