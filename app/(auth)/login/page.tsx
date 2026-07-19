@@ -46,7 +46,6 @@ export default function Login() {
       loginUser({ emailId: email, password: password }),
     )
       .then((res) => {
-        localStorage.setItem("userData", JSON.stringify(res.payload.data));
         router.replace("/dashboard");
       })
       .catch((err) => {
