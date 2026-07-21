@@ -1,20 +1,14 @@
 "use client";
 
-import Header from "@/app/_components/Header/Header";
+import { Account } from "@/app/_types/accounts";
+import AccountCard from "./AccountCard";
 
-const AccountsClient = () => {
-  const handleAddAccount = () => {
-    console.log("handleAddAccount");
-  };
-
+const AccountsClient = ({ data }: { data: Account[] }) => {
   return (
-    <div>
-      <Header
-        title={"Accounts"}
-        onClickHandler={handleAddAccount}
-        buttonText="Add account"
-      />
-      <div className="p-5">Account Page</div>
+    <div className="p-5 grid grid-cols-2 gap-5">
+      {data?.map((account) => {
+        return <AccountCard key={account.id} data={account} />;
+      })}
     </div>
   );
 };
