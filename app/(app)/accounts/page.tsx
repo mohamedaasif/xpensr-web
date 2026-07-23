@@ -6,9 +6,12 @@ const Accounts = async () => {
   const accounts = (await getAllAccounts())?.data;
 
   return (
-    <div className="w-full">
+    <div className="flex h-full flex-col">
       <AccountsHeader />
-      <AccountsClient data={accounts} />
+
+      <div className="flex-1 overflow-y-auto">
+        <AccountsClient data={accounts} />
+      </div>
     </div>
   );
 };

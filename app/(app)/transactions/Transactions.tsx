@@ -8,13 +8,13 @@ const TransactionClient = ({ data }: { data: Transaction }) => {
     console.log("handleAddTransaction");
   };
   return (
-    <div>
+    <div className="flex h-full flex-col">
       <Header
         title={"Transactions"}
         onClickHandler={handleAddTransaction}
         buttonText="Add transaction"
       />
-      <div className="p-5">
+      <div className="p-5 flex-1 overflow-y-auto">
         <Table data={data} />
       </div>
     </div>

@@ -6,9 +6,9 @@ import DashboardSummarySkeleton from "./DashboardSummarySkeleton";
 
 const Dashboard = () => {
   return (
-    <div className="w-full">
+    <div className="flex h-full flex-col">
       <DashboardHeader />
-      <div className="p-5">
+      <div className="p-5 flex-1 overflow-y-auto">
         <Suspense fallback={<DashboardSummarySkeleton />}>
           <DashboardSummary />
         </Suspense>

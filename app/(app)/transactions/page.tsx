@@ -4,11 +4,7 @@ import TransactionClient from "./Transactions";
 const Transactions = async () => {
   const transactionData = (await getAllTransactions())?.data;
 
-  return (
-    <div className="w-full">
-      <TransactionClient data={transactionData} />
-    </div>
-  );
+  return <TransactionClient data={transactionData} />;
 };
 
 export default Transactions;
