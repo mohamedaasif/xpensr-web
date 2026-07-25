@@ -1,10 +1,13 @@
-"use client";
-import Header from "@/app/_components/Header/Header";
+import Profile from "./Profile";
+import SettingsHeader from "./SettingsHeader";
 
-const SettingsClient = () => {
+const SettingsClient = ({ user }: { user: any }) => {
   return (
     <div>
-      <Header title={"Settings"} />
+      <SettingsHeader />
+      <div className="p-5">
+        <Profile user={user} />
+      </div>
     </div>
   );
 };
