@@ -32,7 +32,7 @@ const SettingsClient = ({ user }: { user: any }) => {
   });
   return (
     <div>
-      <SettingsHeader form={form} />
+      <SettingsHeader user={user} form={form} />
       <div className="p-5">
         <Profile user={user} form={form} />
       </div>

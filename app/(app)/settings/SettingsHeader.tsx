@@ -3,8 +3,9 @@ import styles from "./Settings.module.css";
 import Header from "@/app/_components/Header/Header";
 import { useState } from "react";
 
-const SettingsHeader = ({ form }: { form: any }) => {
+const SettingsHeader = ({ user, form }: { user: any; form: any }) => {
   const {
+    reset,
     formState: { isDirty, isSubmitting },
   } = form;
   const [active, setActive] = useState("Profile");
@@ -20,12 +21,26 @@ const SettingsHeader = ({ form }: { form: any }) => {
   const navHandler = (item: string) => {
     setActive(item);
   };
+
+  const handleCancelButton = () => {
+    if (!user) return;
+
+    reset({
+      firstName: user.firstName ?? "",
+      lastName: user.lastName ?? "",
+      email: user.email ?? "",
+      phone: user.phone ?? "",
+      dob: user.dob ? new Date(user.dob) : undefined,
+    });
+  };
+
   return (
     <div>
       <Header
         title={"Settings"}
         onClickHandler={handleEditProfile}
         isDiscard={isDirty}
+        handleCancelButton={handleCancelButton}
         buttonText={"Save changes"}
         type={"submit"}
         id={"profile-form"}

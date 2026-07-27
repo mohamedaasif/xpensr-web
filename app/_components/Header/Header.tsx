@@ -9,6 +9,7 @@ interface HeaderProps {
   type?: "button" | "submit" | "reset" | undefined;
   id?: string;
   onClickHandler?: () => void;
+  handleCancelButton?: () => void;
 }
 
 const Header = ({
@@ -18,6 +19,7 @@ const Header = ({
   type = "button",
   id,
   buttonText,
+  handleCancelButton,
 }: HeaderProps) => {
   return (
     <div className={styles["hdr"]}>
@@ -28,7 +30,7 @@ const Header = ({
             <Bell size={18} />
           </button> */}
           {isDiscard && (
-            <button className="btn-secondary" onClick={onClickHandler}>
+            <button className="btn-secondary" onClick={handleCancelButton}>
               Discard
             </button>
           )}
@@ -40,7 +42,7 @@ const Header = ({
                 !isDiscard ? "!py-[6px] !px-[13px] btn-disabled" : "btn-primary"
               }
               disabled={!isDiscard}
-              // onClick={onClickHandler}
+              {...(type !== "submit" && { onClick: onClickHandler })}
             >
               {buttonText}
             </button>
