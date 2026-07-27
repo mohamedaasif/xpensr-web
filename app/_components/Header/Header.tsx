@@ -6,6 +6,8 @@ interface HeaderProps {
   title: string;
   isDiscard?: boolean;
   buttonText?: string;
+  type?: "button" | "submit" | "reset" | undefined;
+  id?: string;
   onClickHandler?: () => void;
 }
 
@@ -13,6 +15,8 @@ const Header = ({
   title,
   onClickHandler,
   isDiscard,
+  type = "button",
+  id,
   buttonText,
 }: HeaderProps) => {
   return (
@@ -29,7 +33,15 @@ const Header = ({
             </button>
           )}
           {buttonText && (
-            <button className="btn-primary" onClick={onClickHandler}>
+            <button
+              type={type}
+              form={id}
+              className={
+                !isDiscard ? "!py-[6px] !px-[13px] btn-disabled" : "btn-primary"
+              }
+              disabled={!isDiscard}
+              // onClick={onClickHandler}
+            >
               {buttonText}
             </button>
           )}

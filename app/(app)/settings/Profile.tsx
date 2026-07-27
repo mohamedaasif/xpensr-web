@@ -1,7 +1,7 @@
 import { ArrowUpFromLine, User } from "lucide-react";
 import styles from "./Settings.module.css";
 import ProfileForm from "./ProfileForm";
-const Profile = ({ user }: { user: any }) => {
+const Profile = ({ user, form }: { user: any; form: any }) => {
   return (
     <div className={styles["set-sec"]}>
       <div className={styles["set-sh"]}>
@@ -38,7 +38,7 @@ const Profile = ({ user }: { user: any }) => {
             </div>
           </div>
         </div>
-        <ProfileForm user={user} />
+        <ProfileForm user={user} form={form} />
       </div>
     </div>
   );

@@ -225,6 +225,11 @@
   color: var(--input-disabled-text);
   opacity: 0.75;
 }
+.form-error {
+  font-size: 10px;
+  color: var(--color-neg-text);
+  font-family: var(--font-ui);
+}
 
 .btn-primary {
   background: var(--color-ind);

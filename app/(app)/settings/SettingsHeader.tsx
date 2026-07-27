@@ -3,7 +3,10 @@ import styles from "./Settings.module.css";
 import Header from "@/app/_components/Header/Header";
 import { useState } from "react";
 
-const SettingsHeader = () => {
+const SettingsHeader = ({ form }: { form: any }) => {
+  const {
+    formState: { isDirty, isSubmitting },
+  } = form;
   const [active, setActive] = useState("Profile");
   const handleEditProfile = () => {
     console.log("Profile edit");
@@ -22,8 +25,10 @@ const SettingsHeader = () => {
       <Header
         title={"Settings"}
         onClickHandler={handleEditProfile}
-        isDiscard={true}
+        isDiscard={isDirty}
         buttonText={"Save changes"}
+        type={"submit"}
+        id={"profile-form"}
       />
       <div className={styles["hdr-tabs"]}>
         {settingsNavigation?.map((item: string, idx: number) => (

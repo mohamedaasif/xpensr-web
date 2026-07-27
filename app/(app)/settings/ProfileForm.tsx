@@ -1,39 +1,49 @@
 "use client";
 import { DatePickerInput } from "@/app/_components/DatePicker/DatePicker";
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { Controller } from "react-hook-form";
 
-const ProfileForm = ({ user }: { user: any }) => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    dob: undefined,
-  });
-
+const ProfileForm = ({ user, form }: { user: any; form: any }) => {
+  const {
+    reset,
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = form;
   useEffect(() => {
     if (!user) return;
-    setFormData({
-      firstName: user?.firstName,
-      lastName: user?.lastName,
-      email: user?.email,
-      phone: user?.countryCode,
-      dob: undefined, // !TODO: add dob and phone
+
+    reset({
+      firstName: user.firstName ?? "",
+      lastName: user.lastName ?? "",
+      email: user.email ?? "",
+      phone: user.phone ?? "",
+      dob: user.dob ? new Date(user.dob) : undefined,
     });
   }, [user]);
 
-  const handleFormData = (type: string, value: string | Date | undefined) => {
-    setFormData((prev) => {
-      return {
-        ...prev,
-        [type]: value,
-      };
-    });
+  const onSubmit = async (data: any) => {
+    console.log(data);
+
+    // Call API
+
+    // After successful save
+    reset(data);
   };
   return (
-    <form className="w-full">
+    <form
+      className="w-full"
+      id="profile-form"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <FieldGroup>
         <div className="grid grid-cols-2 gap-4">
           <Field>
@@ -42,13 +52,16 @@ const ProfileForm = ({ user }: { user: any }) => {
             </FieldLabel>
             <Input
               id="firstName"
+              {...register("firstName")}
               type="text"
               placeholder="Enter First Name"
-              required
               className="form-input"
-              value={formData.firstName}
-              onChange={(e) => handleFormData("firstName", e.target.value)}
             />
+            {errors?.firstName && (
+              <FieldDescription className="form-error">
+                {errors?.firstName?.message}
+              </FieldDescription>
+            )}
           </Field>
           <Field>
             <FieldLabel htmlFor="lastName" className="form-label">
@@ -56,13 +69,16 @@ const ProfileForm = ({ user }: { user: any }) => {
             </FieldLabel>
             <Input
               id="lastName"
+              {...register("lastName")}
               type="text"
               placeholder="Enter Last Name"
-              required
               className="form-input"
-              value={formData.lastName}
-              onChange={(e) => handleFormData("lastName", e.target.value)}
             />
+            {errors?.lastName && (
+              <FieldDescription className="form-error">
+                {errors?.lastName?.message}
+              </FieldDescription>
+            )}
           </Field>
         </div>
         <Field>
@@ -71,12 +87,12 @@ const ProfileForm = ({ user }: { user: any }) => {
           </FieldLabel>
           <Input
             id="email"
+            {...register("email")}
             type="email"
             placeholder="Enter Email"
             className="form-input"
             required
             disabled
-            value={formData.email}
           />
         </Field>
         <div className="grid grid-cols-2 gap-4">
@@ -86,19 +102,24 @@ const ProfileForm = ({ user }: { user: any }) => {
             </FieldLabel>
             <Input
               id="phone"
+              {...register("phone")}
               type="tel"
               placeholder="Enter Phone"
               className="form-input"
-              value={formData.phone}
-              onChange={(e) => handleFormData("phone", e.target.value)}
             />
           </Field>
-          <DatePickerInput
-            id="dob"
-            label="Date of Birth"
-            value={formData?.dob}
-            onChange={handleFormData}
-            placeholder="MM/DD/YYYY"
+          <Controller
+            control={control}
+            name="dob"
+            render={({ field }) => (
+              <DatePickerInput
+                id="dob"
+                label="Date of Birth"
+                value={field.value}
+                onChange={(_, value) => field.onChange(value)}
+                placeholder="MM/DD/YYYY"
+              />
+            )}
           />
         </div>
       </FieldGroup>
