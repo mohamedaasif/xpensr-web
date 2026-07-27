@@ -134,6 +134,10 @@
   --bdr-width-sb: 1px;
 
   --color-skeleton: #ece9e3;
+
+  --input-disabled-bg: #f4f3f0;
+  --input-disabled-border: #e7e5e0;
+  --input-disabled-text: #9ca3af;
 }
 
 /* UTILITY CLASSES */
@@ -215,7 +219,48 @@
   border-color: var(--color-ind);
   box-shadow: var(--focus-ring);
 }
+.form-input:disabled {
+  background-color: var(--input-disabled-bg);
+  border-color: var(--input-disabled-border);
+  color: var(--input-disabled-text);
+  opacity: 0.75;
+}
 
+.btn-primary {
+  background: var(--color-ind);
+  color: var(--color-sb-text);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 13px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 32px;
+}
+.btn-primary:hover {
+  background-color: var(--color-ind-hover);
+}
+.btn-secondary {
+  background: var(--color-card);
+  color: var(--color-ink-2);
+  border: 0.5px solid var(--color-bdr-2);
+  border-radius: 8px;
+  padding: 6px 11px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 32px;
+}
+.btn-secondary:hover {
+  background: var(--color-card-2);
+}
 .btn-disabled {
   background: transparent;
   color: var(--color-ink-3);

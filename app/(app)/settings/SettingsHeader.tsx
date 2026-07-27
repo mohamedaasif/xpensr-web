@@ -4,11 +4,9 @@ import Header from "@/app/_components/Header/Header";
 import { useState } from "react";
 
 const SettingsHeader = () => {
-  const [isEditView, setIsEditView] = useState(false);
   const [active, setActive] = useState("Profile");
   const handleEditProfile = () => {
     console.log("Profile edit");
-    setIsEditView(!isEditView);
   };
   const settingsNavigation = [
     "Profile",
@@ -24,7 +22,8 @@ const SettingsHeader = () => {
       <Header
         title={"Settings"}
         onClickHandler={handleEditProfile}
-        buttonText={isEditView ? "Save changes" : "Edit"}
+        isDiscard={true}
+        buttonText={"Save changes"}
       />
       <div className={styles["hdr-tabs"]}>
         {settingsNavigation?.map((item: string, idx: number) => (

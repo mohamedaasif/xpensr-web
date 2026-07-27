@@ -50,7 +50,6 @@ export default function Signup() {
       signupUser({ ...formData, emailId: formData.email }),
     )
       .then((res) => {
-        localStorage.setItem("userData", JSON.stringify(res.payload.data));
         router.replace("/dashboard");
       })
       .catch((err) => console.log(err));

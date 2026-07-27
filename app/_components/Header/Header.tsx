@@ -4,11 +4,17 @@ import styles from "./Header.module.css";
 
 interface HeaderProps {
   title: string;
+  isDiscard?: boolean;
   buttonText?: string;
   onClickHandler?: () => void;
 }
 
-const Header = ({ title, onClickHandler, buttonText }: HeaderProps) => {
+const Header = ({
+  title,
+  onClickHandler,
+  isDiscard,
+  buttonText,
+}: HeaderProps) => {
   return (
     <div className={styles["hdr"]}>
       <div className={styles["hdr-row"]}>
@@ -17,8 +23,13 @@ const Header = ({ title, onClickHandler, buttonText }: HeaderProps) => {
           {/* <button className={styles["btn-s"]}>
             <Bell size={18} />
           </button> */}
+          {isDiscard && (
+            <button className="btn-secondary" onClick={onClickHandler}>
+              Discard
+            </button>
+          )}
           {buttonText && (
-            <button className={styles["btn-p"]} onClick={onClickHandler}>
+            <button className="btn-primary" onClick={onClickHandler}>
               {buttonText}
             </button>
           )}

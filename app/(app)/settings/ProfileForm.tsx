@@ -19,7 +19,7 @@ const ProfileForm = ({ user }: { user: any }) => {
       firstName: user?.firstName,
       lastName: user?.lastName,
       email: user?.email,
-      phone: "",
+      phone: user?.countryCode,
       dob: undefined, // !TODO: add dob and phone
     });
   }, [user]);
@@ -75,7 +75,7 @@ const ProfileForm = ({ user }: { user: any }) => {
             placeholder="Enter Email"
             className="form-input"
             required
-            readOnly
+            disabled
             value={formData.email}
           />
         </Field>
