@@ -4,7 +4,7 @@ import * as React from "react";
 import { CalendarIcon } from "lucide-react";
 
 import { Calendar } from "@/components/ui/calendar";
-import { Field, FieldLabel } from "@/components/ui/field";
+import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
@@ -27,6 +27,7 @@ interface DatePickerInputProps {
   disabled?: boolean;
   required?: boolean;
   maxDate?: Date;
+  error: string;
 }
 
 function formatDate(date?: Date) {
@@ -52,6 +53,7 @@ export function DatePickerInput({
   disabled = false,
   required = false,
   maxDate = new Date(),
+  error,
 }: DatePickerInputProps) {
   const [open, setOpen] = React.useState(false);
   const [month, setMonth] = React.useState<Date | undefined>(value);
@@ -158,6 +160,9 @@ export function DatePickerInput({
           </Popover>
         </InputGroupAddon>
       </InputGroup>
+      {error && (
+        <FieldDescription className="form-error">{error}</FieldDescription>
+      )}
     </Field>
   );
 }

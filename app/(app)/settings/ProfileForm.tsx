@@ -1,5 +1,7 @@
 "use client";
 import { DatePickerInput } from "@/app/_components/DatePicker/DatePicker";
+import { useAppDispatch } from "@/app/_feature/hooks";
+import { updateUserProfile } from "@/app/_feature/profile/profileThunk";
 import {
   Field,
   FieldDescription,
@@ -9,6 +11,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useEffect } from "react";
 import { Controller } from "react-hook-form";
+import { format } from "date-fns";
+import { toast } from "sonner";
 
 const ProfileForm = ({ user, form }: { user: any; form: any }) => {
   const {
@@ -18,6 +22,8 @@ const ProfileForm = ({ user, form }: { user: any; form: any }) => {
     handleSubmit,
     formState: { errors },
   } = form;
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (!user) return;
 
@@ -31,12 +37,22 @@ const ProfileForm = ({ user, form }: { user: any; form: any }) => {
   }, [user]);
 
   const onSubmit = async (data: any) => {
-    console.log(data);
-
-    // Call API
-
-    // After successful save
-    reset(data);
+    try {
+      const res = await dispatch(
+        updateUserProfile({
+          ...data,
+          dob: data?.dob ? format(data?.dob, "MM/dd/yyyy") : null,
+        }),
+      );
+      if (!res?.payload?.success) {
+        toast.error(res?.payload?.message);
+      } else {
+        toast.success("Profile updated");
+        reset(data);
+      }
+    } catch (err: any) {
+      toast.error(err.message);
+    }
   };
   return (
     <form
@@ -107,6 +123,11 @@ const ProfileForm = ({ user, form }: { user: any; form: any }) => {
               placeholder="Enter Phone"
               className="form-input"
             />
+            {errors?.phone && (
+              <FieldDescription className="form-error">
+                {errors?.phone?.message}
+              </FieldDescription>
+            )}
           </Field>
           <Controller
             control={control}
@@ -118,6 +139,7 @@ const ProfileForm = ({ user, form }: { user: any; form: any }) => {
                 value={field.value}
                 onChange={(_, value) => field.onChange(value)}
                 placeholder="MM/DD/YYYY"
+                error={errors?.dob?.message}
               />
             )}
           />

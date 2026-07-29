@@ -102,7 +102,7 @@
 
   /* 10. SPECIAL */
   --color-toast-bg: #1c1917;
-  --color-toast-icon: #4ade80;
+  --color-toast-success-icon: #4ade80;
   --color-invest-bg: #f0fdf4;
   --color-invest-text: #166534;
   --color-wallet-bg: #f5f3ff;
@@ -138,6 +138,22 @@
   --input-disabled-bg: #f4f3f0;
   --input-disabled-border: #e7e5e0;
   --input-disabled-text: #9ca3af;
+}
+
+.cn-toast [data-icon] {
+  color: var(--color-toast-success-icon);
+}
+
+.cn-toast[data-type="error"] [data-icon] {
+  color: var(--color-neg);
+}
+
+.cn-toast[data-type="warning"] [data-icon] {
+  color: var(--color-warn-light);
+}
+
+.cn-toast[data-type="info"] [data-icon] {
+  color: var(--color-warn-light);
 }
 
 /* UTILITY CLASSES */
