@@ -138,6 +138,9 @@
   --input-disabled-bg: #f4f3f0;
   --input-disabled-border: #e7e5e0;
   --input-disabled-text: #9ca3af;
+
+  --color-blue-600: #2563eb;
+  --color-violet-700: #7c3aed;
 }
 
 .cn-toast [data-icon] {
