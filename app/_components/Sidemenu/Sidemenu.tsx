@@ -5,6 +5,7 @@ import { LogOut } from "lucide-react";
 import SidebarNavigation from "./SidebarNavigation";
 import { getProfile } from "@/app/_lib/services/profile.service";
 import { redirect } from "next/navigation";
+import Logout from "./Logout";
 
 const Sidemenu = async () => {
   try {
@@ -37,7 +38,7 @@ const Sidemenu = async () => {
                 <p className={styles["sb-uemail"]}>{user?.email}</p>
               </div>
             </div>
-            <LogOut className={styles["logout-btn"]} />
+            <Logout />
           </div>
         </div>
       </div>

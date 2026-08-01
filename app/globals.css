@@ -295,6 +295,21 @@
   font-size: 12px;
   cursor: not-allowed;
 }
+.btn-danger {
+  height: 32px;
+  background: var(--color-neg);
+  color: var(--color-sb-text);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
 
 body {
   height: 100%;
