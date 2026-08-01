@@ -1,10 +1,17 @@
 "use client";
 
 import Header from "@/app/_components/Header/Header";
+import { Dispatch, SetStateAction } from "react";
 
-const AccountsHeader = () => {
+const AccountsHeader = ({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
   const handleAddcAccount = () => {
-    console.log("handleAddcAccount");
+    setOpen(!open);
   };
 
   return (

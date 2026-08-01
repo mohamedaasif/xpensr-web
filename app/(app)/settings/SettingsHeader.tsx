@@ -40,6 +40,7 @@ const SettingsHeader = ({ user, form }: { user: any; form: any }) => {
         title={"Settings"}
         onClickHandler={handleEditProfile}
         isDiscard={isDirty}
+        isDisabled={!isDirty}
         handleCancelButton={handleCancelButton}
         buttonText={"Save changes"}
         type={"submit"}

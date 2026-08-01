@@ -5,6 +5,7 @@ import styles from "./Header.module.css";
 interface HeaderProps {
   title: string;
   isDiscard?: boolean;
+  isDisabled?: boolean;
   buttonText?: string;
   type?: "button" | "submit" | "reset" | undefined;
   id?: string;
@@ -16,6 +17,7 @@ const Header = ({
   title,
   onClickHandler,
   isDiscard,
+  isDisabled = false,
   type = "button",
   id,
   buttonText,
@@ -39,9 +41,9 @@ const Header = ({
               type={type}
               form={id}
               className={
-                !isDiscard ? "!py-[6px] !px-[13px] btn-disabled" : "btn-primary"
+                isDisabled ? "!py-[6px] !px-[13px] btn-disabled" : "btn-primary"
               }
-              disabled={!isDiscard}
+              disabled={isDisabled}
               {...(type !== "submit" && { onClick: onClickHandler })}
             >
               {buttonText}
