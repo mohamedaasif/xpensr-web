@@ -3,6 +3,7 @@
 import {
   Banknote,
   ChartNoAxesCombined,
+  Check,
   CreditCard,
   Landmark,
   QrCode,
@@ -10,8 +11,15 @@ import {
 import styles from "./AccountCard.module.css";
 import { formatCurrency } from "@/lib/utils";
 import { Account } from "@/app/_types/accounts";
+import { ConfirmDialog } from "@/app/_components/ConfirmDialog/ConfirmDialog";
+import { useAppDispatch } from "@/app/_feature/hooks";
+import { updateAccount } from "@/app/_feature/account/accountThunk";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const AccountCard = ({ data }: { data: Account }) => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const stripeClass = {
     Savings: styles.sav,
     Credit_Card: styles.neg,
@@ -47,6 +55,25 @@ const AccountCard = ({ data }: { data: Account }) => {
   };
 
   const Icon = icons[data.type] ?? Landmark;
+
+  const handleSetDefault = async () => {
+    try {
+      const id = data?.id;
+      const res = await dispatch(
+        updateAccount({ id, data: { isDefault: true } }),
+      );
+      router.refresh();
+      if (!res?.payload?.success) {
+        toast.error(
+          `Failed to set "${data?.name}" as default. Please try again.`,
+        );
+      } else {
+        toast.success(`"${data?.name}" set as default account`);
+      }
+    } catch (err: any) {
+      toast.error(err.message);
+    }
+  };
 
   return (
     <div className={styles["stat-card"]}>
@@ -86,9 +113,20 @@ const AccountCard = ({ data }: { data: Account }) => {
           {data?.isDefault ? (
             <span className={styles["def-acc"]}>Default account</span>
           ) : (
-            <button className={styles["acc-act-btn"] + " " + styles["set-def"]}>
-              Set Default
-            </button>
+            <ConfirmDialog
+              trigger={
+                <button
+                  className={styles["acc-act-btn"] + " " + styles["set-def"]}
+                >
+                  Set Default
+                </button>
+              }
+              title="Set as default?"
+              description={`"${data?.name}" will be used as the default account in all new transactions.`}
+              confirmText="Set default"
+              onConfirm={handleSetDefault}
+              icon={<Check />}
+            />
           )}
           <button
             className={

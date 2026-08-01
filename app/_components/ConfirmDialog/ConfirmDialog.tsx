@@ -70,7 +70,10 @@ export function ConfirmDialog({
             {cancelText}
           </AlertDialogCancel>
 
-          <AlertDialogAction variant="destructive" onClick={onConfirm}>
+          <AlertDialogAction
+            variant={isDanger ? "destructive" : "default"}
+            onClick={onConfirm}
+          >
             {confirmText}
           </AlertDialogAction>
         </AlertDialogFooter>
