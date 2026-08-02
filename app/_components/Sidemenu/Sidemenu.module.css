@@ -1,0 +1,79 @@
+.sb-nav-title {
+  color: var(--color-sb-text-5);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 16px 16px 5px;
+}
+.sb-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 12px;
+  font-size: 13px;
+  color: var(--color-sb-text-3);
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 1px 8px;
+  border: none;
+  background: transparent;
+  width: calc(100% - 16px);
+  text-align: left;
+  font-family: var(--font-ui);
+  transition: all 0.12s;
+}
+.sb-nav-item.active {
+  background: var(--color-sb-item-bg);
+  color: var(--color-sb-text);
+  font-weight: 500;
+}
+.sb-divider {
+  height: 1px;
+  background: var(--color-sb-bdr);
+}
+.sb-uname {
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--font-ui);
+  color: rgba(255, 255, 255, 0.9);
+}
+.sb-uemail {
+  font-size: 11px;
+  font-family: var(--font-ui);
+  color: var(--color-sb-text-4);
+}
+.sb-av {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-sb-text);
+  flex-shrink: 0;
+}
+.logout-btn {
+  color: rgba(255, 255, 255, 0.9);
+  width: 25px;
+  height: 25px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+  padding: 2px;
+  margin-right: 5px;
+}
+.logout-btn:hover {
+  background: rgba(220, 38, 38, 0.25);
+  border-color: rgba(220, 38, 38, 0.4);
+}

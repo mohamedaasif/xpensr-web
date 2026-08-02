@@ -11,4 +11,10 @@ export interface Transaction {
   referenceNo: string;
   location: string;
   isRecurring: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
+
+export type CreateTransactionDto = Omit<Transaction, "id" | "userId">;
+
+export type UpdateTransactionDto = Partial<Omit<Transaction, "id" | "userId">>;

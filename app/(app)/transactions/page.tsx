@@ -1,14 +1,10 @@
-import PageTitle from "@/app/_components/PageTitle";
+import { getAllTransactions } from "@/app/_lib/services/transaction.service";
+import TransactionClient from "./Transactions";
 
-const Transactions = () => {
-  return (
-    <div>
-      <PageTitle
-        title={"Transactions"}
-        subtitle="View, search and manage all your transactions."
-      />
-    </div>
-  );
+const Transactions = async () => {
+  const transactionData = (await getAllTransactions())?.data;
+
+  return <TransactionClient data={transactionData} />;
 };
 
 export default Transactions;

@@ -1,0 +1,99 @@
+.tbl {
+  background: var(--color-card);
+  border: 0.5px solid var(--color-bdr);
+  border-radius: 12px;
+  width: 100%;
+  overflow: hidden;
+}
+.tbl-hd {
+  display: grid;
+  padding: 9px 15px;
+  background: var(--color-card-2);
+  border-bottom: 0.5px solid var(--color-bdr);
+}
+.tbl-hd span {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+.tbl-row {
+  display: grid;
+  padding: 11px 15px;
+  border-bottom: 0.5px solid var(--color-bdr);
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.tbl-row:hover {
+  background: var(--color-card-hover);
+}
+.txn-d {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+.txn-s {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--color-ink-3);
+  margin-top: 1px;
+}
+
+.pi {
+  background: var(--color-pos-bg);
+  color: var(--color-pos-text);
+}
+.pe {
+  background: var(--color-neg-bg);
+  color: var(--color-neg-text);
+}
+.pupi {
+  background: var(--color-upi-bg);
+  color: var(--color-upi-text);
+}
+.pbank {
+  background: var(--color-bank-bg);
+  color: var(--color-bank-text);
+}
+.pcard {
+  background: var(--color-card-bg);
+  color: var(--color-card-text);
+}
+.pcash {
+  background: var(--color-cash-bg);
+  color: var(--color-cash-text);
+}
+.pill {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.ap {
+  color: var(--color-pos);
+}
+.an {
+  color: var(--color-neg);
+}
+.amt {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: right;
+}
+
+.no-data {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--color-ink);
+  padding: 1rem;
+  text-align: center;
+}

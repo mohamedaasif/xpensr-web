@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Sidemenu from "../_components/Sidemenu";
+import Sidemenu from "../_components/Sidemenu/Sidemenu";
 
 export const metadata: Metadata = {
   title: {
@@ -14,9 +14,9 @@ export default function AppLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-full flex">
+    <div className="flex h-screen overflow-hidden">
       <Sidemenu />
-      {children}
+      <div className="flex-1 overflow-hidden">{children}</div>
     </div>
   );
 }

@@ -1,0 +1,20 @@
+.sec-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 9px;
+}
+.sec-title {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+.sec-link {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--color-ind);
+  cursor: pointer;
+  border: none;
+  background: none;
+}

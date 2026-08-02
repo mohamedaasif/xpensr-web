@@ -1,4 +1,4 @@
-import axiosInstance from "@/app/_lib/axios";
+import clientApi from "@/app/_lib/axios/client";
 
 export type authTypes = {
   firstName?: string;
@@ -8,11 +8,11 @@ export type authTypes = {
 };
 
 export const signupAPI = (data: authTypes) => {
-  return axiosInstance.post("/signup", data);
+  return clientApi.post("/signup", data);
 };
 
 export const loginAPI = (data: authTypes) => {
-  return axiosInstance.post("/login", data);
+  return clientApi.post("/login", data);
 };
 
-export const logoutAPI = () => axiosInstance.post("/logout");
+export const logoutAPI = () => clientApi.post("/logout");

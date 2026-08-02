@@ -1,0 +1,176 @@
+.stat-card {
+  flex: 1;
+  background: var(--color-card);
+  border: 0.5px solid var(--color-bdr);
+  border-radius: 12px;
+  padding: 14px 16px;
+  overflow: hidden;
+  position: relative;
+}
+.stat-stripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+.sav {
+  background: var(--color-pos);
+}
+.neg {
+  background: var(--color-neg);
+}
+.wallet {
+  background: var(--color-wallet-text);
+}
+.current {
+  background: var(--color-blue-600);
+}
+.cash {
+  background: var(--color-ink-3);
+}
+.invest {
+  background: var(--color-violet-700);
+}
+
+.stat-ico {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 9px;
+}
+.sav-ico {
+  color: var(--color-pos);
+}
+.neg-ico {
+  color: var(--color-neg);
+}
+.wallet-ico {
+  color: var(--color-ind);
+}
+.cash-ico {
+  color: var(--color-ink-3);
+}
+.invest-ico {
+  color: var(--color-violet-700);
+}
+.current-ico {
+  color: var(--color-blue-600);
+}
+
+.sav-bg {
+  background: var(--color-pos-bg);
+}
+.neg-bg {
+  background: var(--color-neg-bg);
+}
+.cash-bg {
+  background: var(--color-card-2);
+}
+.invest-bg {
+  background: var(--color-violet-100);
+}
+.current-bg {
+  background: var(--color-blue-100);
+}
+.wallet-bg {
+  background: var(--color-ind-bg);
+}
+
+.acc-typ {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--color-ink-3);
+  padding: 2px 8px;
+  border: 0.5px solid var(--color-bdr);
+  border-radius: 9999px;
+}
+.default-badge {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 500;
+  background: var(--color-ind-bg);
+  color: var(--color-ind-text);
+  padding: 2px 7px;
+  border-radius: 9999px;
+}
+.acc-name {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+.acc-bank {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+.stat-val {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-ink);
+  letter-spacing: -0.5px;
+  margin: 10px 0 3px;
+}
+.stat-lbl {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--color-ink-3);
+  margin-top: 3px;
+}
+.acc-acts {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 13px;
+  padding-top: 11px;
+  border-top: 0.5px solid var(--color-bdr);
+}
+.acc-act-btn {
+  height: 26px;
+  padding: 0 9px;
+  border-radius: 6px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 0.5px solid var(--color-bdr-2);
+  background: var(--color-card);
+  color: var(--color-ink-2);
+  transition: all 0.1s;
+}
+.acc-act-btn.set-def {
+  color: var(--color-ind);
+}
+.acc-act-btn.del-acc {
+  color: var(--color-neg);
+}
+.acc-act-btn.edit-acc:hover {
+  background: var(--color-card-2);
+}
+.acc-act-btn.set-def:hover {
+  background: var(--color-ind-bg);
+  border-color: 0.5px solid var(--color-ind-border);
+}
+.acc-act-btn.del-acc:hover {
+  background: var(--color-neg-bg);
+  border-color: 0.5px solid var(--color-neg-bg);
+}
+.def-acc {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--color-ink-3);
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
