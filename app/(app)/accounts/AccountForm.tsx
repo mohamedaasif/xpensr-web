@@ -1,6 +1,7 @@
 import { CustomSelect } from "@/app/_components/Select/Select";
-import { addAccount } from "@/app/_feature/account/accountThunk";
+import { addAccount, updateAccount } from "@/app/_feature/account/accountThunk";
 import { useAppDispatch } from "@/app/_feature/hooks";
+import { Account } from "@/app/_types/accounts";
 import { ACCOUNT_TYPES, CURRENCY } from "@/app/_utils/constants";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -19,9 +20,13 @@ import { toast } from "sonner";
 const AccountForm = ({
   form,
   setOpen,
+  editAccount,
+  setEditAccount,
 }: {
   form: any;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  editAccount: Account | null;
+  setEditAccount: Dispatch<SetStateAction<Account | null>>;
 }) => {
   const {
     reset,
@@ -35,21 +40,29 @@ const AccountForm = ({
 
   const onSubmit = async (data: any) => {
     const { accountName, accountType, ...rest } = data;
+    const payload = {
+      ...rest,
+      name: accountName,
+      type: accountType,
+      isArchived: false,
+    };
     try {
-      const res = await dispatch(
-        addAccount({
-          ...rest,
-          name: accountName,
-          type: accountType,
-          isArchived: false,
-        }),
-      );
+      const res = editAccount?.id
+        ? await dispatch(
+            updateAccount({ id: editAccount?.id, data: { ...payload } }),
+          )
+        : await dispatch(
+            addAccount({
+              ...payload,
+            }),
+          );
       if (!res?.payload?.success) {
         toast.error(res?.payload?.message);
       } else {
-        toast.success("Account saved");
+        toast.success(editAccount?.id ? "Account updated" : "Account saved");
         setOpen(false);
         reset();
+        setEditAccount(null);
         router.refresh();
       }
     } catch (err: any) {

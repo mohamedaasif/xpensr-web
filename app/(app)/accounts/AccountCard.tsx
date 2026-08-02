@@ -16,8 +16,15 @@ import { useAppDispatch } from "@/app/_feature/hooks";
 import { updateAccount } from "@/app/_feature/account/accountThunk";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { Dispatch, SetStateAction } from "react";
 
-const AccountCard = ({ data }: { data: Account }) => {
+const AccountCard = ({
+  data,
+  setEditAccount,
+}: {
+  data: Account;
+  setEditAccount: Dispatch<SetStateAction<Account | null>>;
+}) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const stripeClass = {
@@ -107,7 +114,10 @@ const AccountCard = ({ data }: { data: Account }) => {
           Opening balance {formatCurrency(data?.openingBalance || 0)}
         </div>
         <div className={styles["acc-acts"]}>
-          <button className={styles["acc-act-btn"] + " " + styles["edit-acc"]}>
+          <button
+            className={styles["acc-act-btn"] + " " + styles["edit-acc"]}
+            onClick={() => setEditAccount(data)}
+          >
             Edit
           </button>
           {data?.isDefault ? (
@@ -128,13 +138,14 @@ const AccountCard = ({ data }: { data: Account }) => {
               icon={<Check />}
             />
           )}
-          <button
+          {/* // !TODO: Delete account in phase 2 */}
+          {/* <button
             className={
               styles["acc-act-btn"] + " " + styles["del-acc"] + " ml-auto"
             }
           >
             Delete
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

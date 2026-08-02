@@ -6,7 +6,7 @@ import { AppDrawer } from "@/app/_components/AppDrawer/AppDrawer";
 import { Button } from "@/components/ui/button";
 import AccountForm from "./AccountForm";
 import AccountsHeader from "./AccountsHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -42,23 +42,53 @@ const AccountsClient = ({ data }: { data: Account[] }) => {
     },
   });
   const [open, setOpen] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
+  const [editAccount, setEditAccount] = useState<Account | null>(null);
+
+  useEffect(() => {
+    if (!editAccount?.id) return;
+
+    form.reset({
+      accountType: editAccount?.type ?? "",
+      accountName: editAccount?.name ?? "",
+      bankName: editAccount?.bankName ?? "",
+      openingBalance: editAccount?.openingBalance ?? undefined,
+      currency: editAccount?.currency ?? "INR",
+      isDefault: editAccount?.isDefault ?? false,
+    });
+    setOpen(true);
+  }, [editAccount]);
+
+  const handleDrawerChange = (isOpen: boolean) => {
+    setOpen(isOpen);
+    if (!isOpen) {
+      form.reset({
+        accountType: "",
+        accountName: "",
+        bankName: "",
+        openingBalance: "" as any,
+        currency: "INR",
+        isDefault: false,
+      });
+      setEditAccount(null);
+    }
+  };
+
   return (
     <div>
       <AccountsHeader open={open} setOpen={setOpen} />
 
       <AppDrawer
         open={open}
-        onOpenChange={setOpen}
-        title={isEdit ? "Edit account" : "Add account"}
+        onOpenChange={handleDrawerChange}
+        title={editAccount?.id ? "Edit account" : "Add account"}
         footer={
           <div className="flex gap-3">
             <Button form="account-form" type="submit" className="flex-2">
-              {isEdit ? "Update account" : "Save account"}
+              {editAccount?.id ? "Update account" : "Save account"}
             </Button>
             <Button
               variant="outline"
-              onClick={() => setOpen(false)}
+              onClick={() => handleDrawerChange(false)}
               className="flex-1"
             >
               Cancel
@@ -66,12 +96,23 @@ const AccountsClient = ({ data }: { data: Account[] }) => {
           </div>
         }
       >
-        <AccountForm form={form} setOpen={setOpen} />
+        <AccountForm
+          form={form}
+          setOpen={setOpen}
+          editAccount={editAccount}
+          setEditAccount={setEditAccount}
+        />
       </AppDrawer>
 
       <div className="p-5 grid grid-cols-2 gap-5">
         {data?.map((account) => {
-          return <AccountCard key={account.id} data={account} />;
+          return (
+            <AccountCard
+              key={account.id}
+              data={account}
+              setEditAccount={setEditAccount}
+            />
+          );
         })}
       </div>
     </div>
