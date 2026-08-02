@@ -34,7 +34,6 @@ export function AppDrawer({
   children,
   footer,
   direction = "right",
-  className,
 }: AppDrawerProps) {
   return (
     <Drawer open={open} onOpenChange={onOpenChange} direction={direction}>
@@ -47,7 +46,11 @@ export function AppDrawer({
 
         <div className="flex-1 overflow-y-auto p-5">{children}</div>
 
-        {footer && <DrawerFooter>{footer}</DrawerFooter>}
+        {footer && (
+          <DrawerFooter className="border-t-[0.5px] border-[var(--color-bdr)]">
+            {footer}
+          </DrawerFooter>
+        )}
       </DrawerContent>
     </Drawer>
   );

@@ -14,6 +14,7 @@ interface CustomSelectProps {
   onValueChange: (value: string) => void;
   options: string[];
   placeholder?: string;
+  disabled?: boolean;
 }
 
 export function CustomSelect({
@@ -21,9 +22,10 @@ export function CustomSelect({
   onValueChange,
   options,
   placeholder,
+  disabled = false,
 }: CustomSelectProps) {
   return (
-    <Select value={value} onValueChange={onValueChange}>
+    <Select value={value} onValueChange={onValueChange} disabled={disabled}>
       <SelectTrigger>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

@@ -7,7 +7,7 @@ export const addAccount = createAsyncThunk(
   async (data: CreateAccountDto, { rejectWithValue }) => {
     try {
       const res = await addAccountAPI(data);
-      return res.data.data;
+      return res.data;
     } catch (err: any) {
       return rejectWithValue({
         message: err.response?.data?.message,

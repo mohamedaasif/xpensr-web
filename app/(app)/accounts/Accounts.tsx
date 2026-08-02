@@ -52,18 +52,21 @@ const AccountsClient = ({ data }: { data: Account[] }) => {
         onOpenChange={setOpen}
         title={isEdit ? "Edit account" : "Add account"}
         footer={
-          <>
-            <Button variant="outline" onClick={() => setOpen(false)}>
-              Cancel
-            </Button>
-
-            <Button form="account-form" type="submit">
+          <div className="flex gap-3">
+            <Button form="account-form" type="submit" className="flex-2">
               {isEdit ? "Update account" : "Save account"}
             </Button>
-          </>
+            <Button
+              variant="outline"
+              onClick={() => setOpen(false)}
+              className="flex-1"
+            >
+              Cancel
+            </Button>
+          </div>
         }
       >
-        <AccountForm form={form} />
+        <AccountForm form={form} setOpen={setOpen} />
       </AppDrawer>
 
       <div className="p-5 grid grid-cols-2 gap-5">

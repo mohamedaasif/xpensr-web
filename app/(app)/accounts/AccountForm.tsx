@@ -10,10 +10,19 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { useRouter } from "next/navigation";
+import { Dispatch, SetStateAction } from "react";
 import { Controller } from "react-hook-form";
 import { toast } from "sonner";
 
-const AccountForm = ({ form }: { form: any }) => {
+const AccountForm = ({
+  form,
+  setOpen,
+}: {
+  form: any;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
   const {
     reset,
     register,
@@ -22,18 +31,26 @@ const AccountForm = ({ form }: { form: any }) => {
     formState: { errors },
   } = form;
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const onSubmit = async (data: any) => {
+    const { accountName, accountType, ...rest } = data;
     try {
       const res = await dispatch(
         addAccount({
-          ...data,
+          ...rest,
+          name: accountName,
+          type: accountType,
+          isArchived: false,
         }),
       );
       if (!res?.payload?.success) {
         toast.error(res?.payload?.message);
       } else {
         toast.success("Account saved");
+        setOpen(false);
+        reset();
+        router.refresh();
       }
     } catch (err: any) {
       toast.error(err.message);
@@ -141,6 +158,7 @@ const AccountForm = ({ form }: { form: any }) => {
                     value={field.value}
                     onValueChange={field.onChange}
                     placeholder="Select currency"
+                    disabled={true}
                   />
                 )}
               />{" "}
@@ -150,6 +168,23 @@ const AccountForm = ({ form }: { form: any }) => {
                 </FieldDescription>
               )}
             </Field>
+          </div>
+          <div className="h-[0.5px] bg-[var(--color-bdr)] my-2"></div>
+          <div className="flex items-center space-x-2">
+            <Controller
+              control={control}
+              name="isDefault"
+              render={({ field }) => (
+                <Switch
+                  id="isDefault"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              )}
+            />
+            <FieldLabel htmlFor="isDefault" className="form-label">
+              Set as default account
+            </FieldLabel>
           </div>
         </FieldGroup>
       </form>

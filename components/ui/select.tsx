@@ -54,7 +54,10 @@ function SelectTrigger({
         transition-colors
         focus:border-[var(--color-ind)]
         disabled:cursor-not-allowed
-        disabled:opacity-50
+        disabled:opacity-75
+        disabled:bg-[var(--input-disabled-bg)]
+        disabled:border-[var(--input-disabled-border)]
+        disabled:text-[var(--input-disabled-text)]
         data-[placeholder]:text-[var(--color-ink-2)]
         [&_svg]:pointer-events-none
         [&_svg]:shrink-0

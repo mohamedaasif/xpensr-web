@@ -10,7 +10,7 @@ const AccountsHeader = ({
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const handleAddcAccount = () => {
+  const handleAddAccount = () => {
     setOpen(!open);
   };
 
@@ -18,8 +18,8 @@ const AccountsHeader = ({
     <>
       <Header
         title={"Accounts"}
-        onClickHandler={handleAddcAccount}
-        buttonText="Add Account"
+        onClickHandler={handleAddAccount}
+        buttonText="Add account"
       />
     </>
   );
