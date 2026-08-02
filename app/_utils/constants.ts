@@ -51,3 +51,14 @@ export type ApiError = {
   message?: string;
   status?: number;
 };
+
+export const ACCOUNT_TYPES = [
+  "Cash",
+  "Savings",
+  "Current",
+  "Credit_Card",
+  "Wallet",
+  "Investment",
+];
+
+export const CURRENCY = ["INR", "USD"];

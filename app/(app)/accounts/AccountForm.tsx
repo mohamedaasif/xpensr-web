@@ -1,8 +1,158 @@
-const AccountForm = ({ id }: { id: string }) => {
+import { CustomSelect } from "@/app/_components/Select/Select";
+import { addAccount } from "@/app/_feature/account/accountThunk";
+import { useAppDispatch } from "@/app/_feature/hooks";
+import { ACCOUNT_TYPES, CURRENCY } from "@/app/_utils/constants";
+import { Badge } from "@/components/ui/badge";
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Controller } from "react-hook-form";
+import { toast } from "sonner";
+
+const AccountForm = ({ form }: { form: any }) => {
+  const {
+    reset,
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = form;
+  const dispatch = useAppDispatch();
+
+  const onSubmit = async (data: any) => {
+    try {
+      const res = await dispatch(
+        addAccount({
+          ...data,
+        }),
+      );
+      if (!res?.payload?.success) {
+        toast.error(res?.payload?.message);
+      } else {
+        toast.success("Account saved");
+      }
+    } catch (err: any) {
+      toast.error(err.message);
+    }
+  };
   return (
     <div>
-      <div>Add Account</div>
-      <form id={id} action="account-form"></form>
+      <form id="account-form" onSubmit={handleSubmit(onSubmit)}>
+        <FieldGroup className="gap-3">
+          <div className="">
+            <Field>
+              <FieldLabel htmlFor="accountType" className="form-label">
+                Account type*
+              </FieldLabel>
+              <Controller
+                control={control}
+                name="accountType"
+                render={({ field }) => (
+                  <div className="grid grid-cols-3 gap-2">
+                    {ACCOUNT_TYPES.map((type) => (
+                      <Badge
+                        key={type}
+                        selected={field.value === type}
+                        onClick={() => field.onChange(type)}
+                        className="w-full h-8"
+                      >
+                        {type.replace("_", " ")}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+              />
+              {errors?.accountType && (
+                <FieldDescription className="form-error">
+                  {errors?.accountType?.message}
+                </FieldDescription>
+              )}
+            </Field>
+          </div>
+          <Field>
+            <FieldLabel htmlFor="accountName" className="form-label">
+              Account name*
+            </FieldLabel>
+            <Input
+              id="accountName"
+              {...register("accountName")}
+              type="text"
+              placeholder="e.g. Axis Salary Account"
+              className="form-input"
+            />
+            {errors?.accountName && (
+              <FieldDescription className="form-error">
+                {errors?.accountName?.message}
+              </FieldDescription>
+            )}
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="bankName" className="form-label">
+              Bank name*
+            </FieldLabel>
+            <Input
+              id="bankName"
+              {...register("bankName")}
+              type="text"
+              placeholder="e.g. Axis Bank"
+              className="form-input"
+            />
+            {errors?.bankName && (
+              <FieldDescription className="form-error">
+                {errors?.bankName?.message}
+              </FieldDescription>
+            )}
+          </Field>
+          <div className="grid grid-cols-2 gap-4">
+            <Field>
+              <FieldLabel htmlFor="openingBalance" className="form-label">
+                Opening balance*
+              </FieldLabel>
+              <Input
+                id="openingBalance"
+                {...register("openingBalance", {
+                  valueAsNumber: true,
+                  setValueAs: (v: any) => (v === "" ? undefined : Number(v)),
+                })}
+                type="number"
+                placeholder="Enter amount"
+                className="form-input"
+              />
+              {errors?.openingBalance && (
+                <FieldDescription className="form-error">
+                  {errors?.openingBalance?.message}
+                </FieldDescription>
+              )}
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="currency" className="form-label">
+                Currency
+              </FieldLabel>
+              <Controller
+                control={control}
+                name="currency"
+                render={({ field }) => (
+                  <CustomSelect
+                    options={CURRENCY}
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    placeholder="Select currency"
+                  />
+                )}
+              />{" "}
+              {errors?.currency && (
+                <FieldDescription className="form-error">
+                  {errors?.currency?.message}
+                </FieldDescription>
+              )}
+            </Field>
+          </div>
+        </FieldGroup>
+      </form>
     </div>
   );
 };

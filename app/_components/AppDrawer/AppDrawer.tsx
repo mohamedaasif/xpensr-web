@@ -38,17 +38,14 @@ export function AppDrawer({
 }: AppDrawerProps) {
   return (
     <Drawer open={open} onOpenChange={onOpenChange} direction={direction}>
-      <DrawerContent
-        // className={`w-full max-w-xl ml-auto h-screen ${className ?? ""}`}
-        className={styles.drawer}
-      >
-        <DrawerHeader>
-          <DrawerTitle>{title}</DrawerTitle>
+      <DrawerContent className={styles.drawer}>
+        <DrawerHeader className={styles.drawerHeader}>
+          <DrawerTitle className={styles.drawerTitle}>{title}</DrawerTitle>
 
           {description && <DrawerDescription>{description}</DrawerDescription>}
         </DrawerHeader>
 
-        <div className="flex-1 overflow-y-auto px-5">{children}</div>
+        <div className="flex-1 overflow-y-auto p-5">{children}</div>
 
         {footer && <DrawerFooter>{footer}</DrawerFooter>}
       </DrawerContent>
