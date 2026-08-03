@@ -9,10 +9,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+interface SelectOptionObject {
+  label: string;
+  value: string;
+}
+
 interface CustomSelectProps {
   value?: string;
   onValueChange: (value: string) => void;
-  options: string[];
+  options: (string | SelectOptionObject)[];
   placeholder?: string;
   disabled?: boolean;
 }
@@ -24,6 +29,10 @@ export function CustomSelect({
   placeholder,
   disabled = false,
 }: CustomSelectProps) {
+  const normalizedOptions = options.map((option) =>
+    typeof option === "string" ? { label: option, value: option } : option,
+  );
+
   return (
     <Select value={value} onValueChange={onValueChange} disabled={disabled}>
       <SelectTrigger>
@@ -32,9 +41,9 @@ export function CustomSelect({
 
       <SelectContent position="popper">
         <SelectGroup>
-          {options.map((option) => (
-            <SelectItem key={option} value={option}>
-              {option}
+          {normalizedOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
             </SelectItem>
           ))}
         </SelectGroup>

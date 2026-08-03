@@ -62,3 +62,7 @@ export const ACCOUNT_TYPES = [
 ];
 
 export const CURRENCY = ["INR", "USD"];
+
+export const TRANSACTION_TYPES = ["Expense", "Income", "Transfer"];
+
+export const PAYMENT_METHOD = ["UPI", "Cash", "Card", "BankTransfer", "Cheque"];
