@@ -87,7 +87,7 @@
   font-family: var(--font-mono);
   font-size: 13px;
   font-weight: 500;
-  text-align: right;
+  /* text-align: right; */
 }
 
 .no-data {

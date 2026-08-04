@@ -1,17 +1,19 @@
+import { SquarePen, Trash2 } from "lucide-react";
 import styles from "./Table.module.css";
 
 const Table = (props: any) => {
-  const { data, loading } = props;
+  const { data, loading, handleEditTransaction } = props;
   return (
     <div className={styles["tbl"]} id="dash-txns">
       <div
         className={styles["tbl-hd"]}
-        style={{ gridTemplateColumns: "1fr 68px 62px 76px" }}
+        style={{ gridTemplateColumns: "1fr 68px 62px 76px 62px" }}
       >
         <span>Description</span>
         <span>Type</span>
         <span>Payment</span>
-        <span style={{ textAlign: "right" }}>Amount</span>
+        <span>Amount</span>
+        <span>Action</span>
       </div>
 
       {loading ? (
@@ -28,7 +30,7 @@ const Table = (props: any) => {
             <div
               key={data?.id}
               className={styles["tbl-row"]}
-              style={{ gridTemplateColumns: "1fr 68px 62px 76px" }}
+              style={{ gridTemplateColumns: "1fr 68px 62px 76px 62px" }}
             >
               <div>
                 <div className={styles["txn-d"]}>{data?.description}</div>
@@ -70,6 +72,14 @@ const Table = (props: any) => {
                 }
               >
                 {data?.type === "Income" ? "+" : "-"}₹{data?.amount}
+              </div>
+              <div className="flex gap-2">
+                <SquarePen
+                  size={16}
+                  color="var(--color-ind-light)"
+                  onClick={() => handleEditTransaction(data)}
+                />
+                <Trash2 size={16} color="var(--color-neg)" />
               </div>
             </div>
           );

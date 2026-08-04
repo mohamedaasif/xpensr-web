@@ -79,6 +79,26 @@ const TransactionClient = ({
     }
   };
 
+  const handleEditTransaction = (data: Transaction) => {
+    const transactionData = {
+      type: data?.type,
+      amount: data?.amount,
+      description: data?.description,
+      notes: data?.notes,
+      transactionDate: new Date(data?.transactionDate),
+      paymentMethod: data?.paymentMethod,
+      referenceNo: data?.referenceNo,
+      location: data?.location,
+      isRecurring: data?.isRecurring,
+      account: data?.accountId,
+    };
+    setEditTransaction(data);
+    form.reset({
+      ...transactionData,
+    });
+    setOpen(true);
+  };
+
   return (
     <div className="flex h-full flex-col">
       <Header
@@ -114,7 +134,7 @@ const TransactionClient = ({
         />
       </AppDrawer>
       <div className="p-5 flex-1 overflow-y-auto">
-        <Table data={data} />
+        <Table data={data} handleEditTransaction={handleEditTransaction} />
       </div>
     </div>
   );

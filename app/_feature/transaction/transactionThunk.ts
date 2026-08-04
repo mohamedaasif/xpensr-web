@@ -30,7 +30,7 @@ export const addTransaction = createAsyncThunk(
   async (data: CreateTransactionDto, { rejectWithValue }) => {
     try {
       const res = await addTransactionAPI(data);
-      return res.data.data;
+      return res.data;
     } catch (err: any) {
       return rejectWithValue({
         message: err.response?.data?.message,
@@ -48,7 +48,7 @@ export const editTransaction = createAsyncThunk(
   ) => {
     try {
       const res = await editTransactionAPI(id, data);
-      return res.data.data;
+      return res.data;
     } catch (err: any) {
       return rejectWithValue({
         message: err.response?.data?.message,

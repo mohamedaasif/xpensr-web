@@ -1,15 +1,13 @@
 import { DatePickerInput } from "@/app/_components/DatePicker/DatePicker";
 import { CustomSelect } from "@/app/_components/Select/Select";
-import { addAccount, updateAccount } from "@/app/_feature/account/accountThunk";
 import { useAppDispatch } from "@/app/_feature/hooks";
+import {
+  addTransaction,
+  editTransaction as updateTransaction,
+} from "@/app/_feature/transaction/transactionThunk";
 import { Account } from "@/app/_types/accounts";
 import { Transaction } from "@/app/_types/transaction";
-import {
-  ACCOUNT_TYPES,
-  CURRENCY,
-  PAYMENT_METHOD,
-  TRANSACTION_TYPES,
-} from "@/app/_utils/constants";
+import { PAYMENT_METHOD, TRANSACTION_TYPES } from "@/app/_utils/constants";
 import { Badge } from "@/components/ui/badge";
 import {
   Field,
@@ -20,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 import { Controller } from "react-hook-form";
@@ -55,38 +54,39 @@ const TransactionForm = ({
     })) ?? [];
 
   const onSubmit = async (data: any) => {
-    console.log(data);
-    // const { accountName, accountType, ...rest } = data;
-    // const payload = {
-    //   ...rest,
-    //   name: accountName,
-    //   type: accountType,
-    //   isArchived: false,
-    // };
-    // try {
-    //   const res = editTransaction?.id
-    //     ? await dispatch(
-    //         updateAccount({ id: editTransaction?.id, data: { ...payload } }),
-    //       )
-    //     : await dispatch(
-    //         addAccount({
-    //           ...payload,
-    //         }),
-    //       );
-    //   if (!res?.payload?.success) {
-    //     toast.error(res?.payload?.message);
-    //   } else {
-    //     toast.success(
-    //       editTransaction?.id ? "Transaction updated" : "Transaction saved",
-    //     );
-    //     setOpen(false);
-    //     reset();
-    //     setEditTransaction(null);
-    //     router.refresh();
-    //   }
-    // } catch (err: any) {
-    //   toast.error(err.message);
-    // }
+    const { transactionDate, account, ...rest } = data;
+    const payload = {
+      ...rest,
+      accountId: account,
+      transactionDate: format(transactionDate, "MM/dd/yyyy"),
+    };
+    try {
+      const res = editTransaction?.id
+        ? await dispatch(
+            updateTransaction({
+              id: editTransaction?.id,
+              data: { ...payload },
+            }),
+          )
+        : await dispatch(
+            addTransaction({
+              ...payload,
+            }),
+          );
+      if (!res?.payload?.success) {
+        toast.error(res?.payload?.message);
+      } else {
+        toast.success(
+          editTransaction?.id ? "Transaction updated" : "Transaction saved",
+        );
+        setOpen(false);
+        reset();
+        setEditTransaction(null);
+        router.refresh();
+      }
+    } catch (err: any) {
+      toast.error(err.message);
+    }
   };
   return (
     <div>
