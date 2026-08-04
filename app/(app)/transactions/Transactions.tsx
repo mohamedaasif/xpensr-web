@@ -10,6 +10,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import TransactionForm from "./TransactionForm";
 import { Account } from "@/app/_types/accounts";
+import { deleteTransaction } from "@/app/_feature/transaction/transactionThunk";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/app/_feature/hooks";
 
 const transactionSchema = z.object({
   type: z.string().trim().nonempty("Select payment type"),
@@ -35,6 +39,8 @@ const TransactionClient = ({
   data: Transaction;
   accountsData: Account[] | null;
 }) => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const form = useForm<TransactionFormValues>({
     resolver: zodResolver(transactionSchema),
     defaultValues: {
@@ -99,6 +105,21 @@ const TransactionClient = ({
     setOpen(true);
   };
 
+  const handleDeleteTransaction = async (id: string) => {
+    if (!id) return;
+    try {
+      const res = await dispatch(deleteTransaction(id));
+      if (!res?.payload?.success) {
+        toast.error(res?.payload?.message);
+      } else {
+        toast.success("Transaction deleted");
+        router.refresh();
+      }
+    } catch (err: any) {
+      toast.error(err.message);
+    }
+  };
+
   return (
     <div className="flex h-full flex-col">
       <Header
@@ -134,7 +155,11 @@ const TransactionClient = ({
         />
       </AppDrawer>
       <div className="p-5 flex-1 overflow-y-auto">
-        <Table data={data} handleEditTransaction={handleEditTransaction} />
+        <Table
+          data={data}
+          handleEditTransaction={handleEditTransaction}
+          handleDeleteTransaction={handleDeleteTransaction}
+        />
       </div>
     </div>
   );

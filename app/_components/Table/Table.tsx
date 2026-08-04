@@ -1,8 +1,12 @@
+"use client";
+
 import { SquarePen, Trash2 } from "lucide-react";
 import styles from "./Table.module.css";
+import { ConfirmDialog } from "../ConfirmDialog/ConfirmDialog";
 
 const Table = (props: any) => {
-  const { data, loading, handleEditTransaction } = props;
+  const { data, loading, handleEditTransaction, handleDeleteTransaction } =
+    props;
   return (
     <div className={styles["tbl"]} id="dash-txns">
       <div
@@ -79,7 +83,27 @@ const Table = (props: any) => {
                   color="var(--color-ind-light)"
                   onClick={() => handleEditTransaction(data)}
                 />
-                <Trash2 size={16} color="var(--color-neg)" />
+                <ConfirmDialog
+                  trigger={
+                    <button
+                      className={
+                        styles["acc-act-btn"] + " " + styles["set-def"]
+                      }
+                    >
+                      <Trash2
+                        size={16}
+                        color="var(--color-neg)"
+                        className="cursor-pointer"
+                      />
+                    </button>
+                  }
+                  title="Delete transaction?"
+                  description={`"${data?.description}" · ${data?.type === "Income" ? "+" : "-"}₹${data?.amount} will be permanently deleted.`}
+                  confirmText="Confirm"
+                  onConfirm={() => handleDeleteTransaction(data?.id)}
+                  icon={<Trash2 />}
+                  isDanger={true}
+                />
               </div>
             </div>
           );

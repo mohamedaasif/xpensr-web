@@ -62,8 +62,8 @@ export const deleteTransaction = createAsyncThunk(
   "transaction/delete",
   async (id: string, { rejectWithValue }) => {
     try {
-      await deleteTransactionAPI(id);
-      return id;
+      const res = await deleteTransactionAPI(id);
+      return res.data;
     } catch (err: any) {
       return rejectWithValue({
         message: err.response?.data?.message,
