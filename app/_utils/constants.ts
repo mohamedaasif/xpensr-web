@@ -63,6 +63,6 @@ export const ACCOUNT_TYPES = [
 
 export const CURRENCY = ["INR", "USD"];
 
-export const TRANSACTION_TYPES = ["Expense", "Income", "Transfer"];
+export const TRANSACTION_TYPES = ["Expense", "Income"]; // !TODO "Transfer" - Add later for phase 2
 
 export const PAYMENT_METHOD = ["UPI", "Cash", "Card", "BankTransfer", "Cheque"];

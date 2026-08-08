@@ -30,12 +30,13 @@ const Profile = ({ user, form }: { user: any; form: any }) => {
             <div className="font-[var(--font-ui)] text-[12px] text-[var(--color-ink-3)]">
               {user.email}
             </div>
-            <div className="flex gap-1 mt-1">
+            {/* // !TODO Profile pic for phase 2 */}
+            {/* <div className="flex gap-1 mt-1">
               <button className={styles["btn-s"]}>
                 <ArrowUpFromLine size={13} /> Upload photo
               </button>
               <button className="btn-disabled">Remove</button>
-            </div>
+            </div> */}
           </div>
         </div>
         <ProfileForm user={user} form={form} />

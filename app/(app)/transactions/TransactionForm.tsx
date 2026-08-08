@@ -271,7 +271,8 @@ const TransactionForm = ({
               placeholder="Any additional details..."
             />
           </Field>
-          <div className="h-[0.5px] bg-[var(--color-bdr)] my-2"></div>
+          {/* // !TODO for phase 2 */}
+          {/* <div className="h-[0.5px] bg-[var(--color-bdr)] my-2"></div>
           <div className="flex items-center space-x-2">
             <Controller
               control={control}
@@ -287,7 +288,7 @@ const TransactionForm = ({
             <FieldLabel htmlFor="isRecurring" className="form-label">
               Mark as recurring
             </FieldLabel>
-          </div>
+          </div> */}
         </FieldGroup>
       </form>
     </div>
