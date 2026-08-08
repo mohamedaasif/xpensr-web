@@ -159,6 +159,7 @@ const TransactionClient = ({
           data={data}
           handleEditTransaction={handleEditTransaction}
           handleDeleteTransaction={handleDeleteTransaction}
+          isAction={true}
         />
       </div>
     </div>

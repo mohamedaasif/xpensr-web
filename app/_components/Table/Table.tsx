@@ -5,19 +5,28 @@ import styles from "./Table.module.css";
 import { ConfirmDialog } from "../ConfirmDialog/ConfirmDialog";
 
 const Table = (props: any) => {
-  const { data, loading, handleEditTransaction, handleDeleteTransaction } =
-    props;
+  const {
+    data,
+    loading,
+    handleEditTransaction,
+    handleDeleteTransaction,
+    isAction = false,
+  } = props;
   return (
     <div className={styles["tbl"]} id="dash-txns">
       <div
         className={styles["tbl-hd"]}
-        style={{ gridTemplateColumns: "1fr 68px 62px 76px 62px" }}
+        style={{
+          gridTemplateColumns: isAction
+            ? "1fr 68px 62px 76px 62px"
+            : "1fr 68px 62px 76px",
+        }}
       >
         <span>Description</span>
         <span>Type</span>
         <span>Payment</span>
         <span>Amount</span>
-        <span>Action</span>
+        {isAction && <span>Action</span>}
       </div>
 
       {loading ? (
@@ -34,7 +43,11 @@ const Table = (props: any) => {
             <div
               key={data?.id}
               className={styles["tbl-row"]}
-              style={{ gridTemplateColumns: "1fr 68px 62px 76px 62px" }}
+              style={{
+                gridTemplateColumns: isAction
+                  ? "1fr 68px 62px 76px 62px"
+                  : "1fr 68px 62px 76px",
+              }}
             >
               <div>
                 <div className={styles["txn-d"]}>{data?.description}</div>
@@ -77,34 +90,36 @@ const Table = (props: any) => {
               >
                 {data?.type === "Income" ? "+" : "-"}₹{data?.amount}
               </div>
-              <div className="flex gap-2">
-                <SquarePen
-                  size={16}
-                  color="var(--color-ind-light)"
-                  onClick={() => handleEditTransaction(data)}
-                />
-                <ConfirmDialog
-                  trigger={
-                    <button
-                      className={
-                        styles["acc-act-btn"] + " " + styles["set-def"]
-                      }
-                    >
-                      <Trash2
-                        size={16}
-                        color="var(--color-neg)"
-                        className="cursor-pointer"
-                      />
-                    </button>
-                  }
-                  title="Delete transaction?"
-                  description={`"${data?.description}" · ${data?.type === "Income" ? "+" : "-"}₹${data?.amount} will be permanently deleted.`}
-                  confirmText="Confirm"
-                  onConfirm={() => handleDeleteTransaction(data?.id)}
-                  icon={<Trash2 />}
-                  isDanger={true}
-                />
-              </div>
+              {isAction && (
+                <div className="flex gap-2">
+                  <SquarePen
+                    size={16}
+                    color="var(--color-ind-light)"
+                    onClick={() => handleEditTransaction(data)}
+                  />
+                  <ConfirmDialog
+                    trigger={
+                      <button
+                        className={
+                          styles["acc-act-btn"] + " " + styles["set-def"]
+                        }
+                      >
+                        <Trash2
+                          size={16}
+                          color="var(--color-neg)"
+                          className="cursor-pointer"
+                        />
+                      </button>
+                    }
+                    title="Delete transaction?"
+                    description={`"${data?.description}" · ${data?.type === "Income" ? "+" : "-"}₹${data?.amount} will be permanently deleted.`}
+                    confirmText="Confirm"
+                    onConfirm={() => handleDeleteTransaction(data?.id)}
+                    icon={<Trash2 />}
+                    isDanger={true}
+                  />
+                </div>
+              )}
             </div>
           );
         })
