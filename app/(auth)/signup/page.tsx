@@ -175,7 +175,7 @@ export default function Signup() {
             </div>
 
             {/* Terms */}
-            <div className="flex items-start gap-2 text-sm">
+            {/* <div className="flex items-start gap-2 text-sm">
               <input type="checkbox" className="mt-1" />
               <p className="text-gray-600">
                 I agree to the{" "}
@@ -187,7 +187,7 @@ export default function Signup() {
                   Privacy Policy
                 </span>
               </p>
-            </div>
+            </div> */}
 
             {/* Button */}
             <button
