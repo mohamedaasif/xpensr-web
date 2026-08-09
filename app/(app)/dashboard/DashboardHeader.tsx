@@ -11,8 +11,8 @@ const DashboardHeader = () => {
     <>
       <Header
         title={"Dashboard"}
-        onClickHandler={handleAddTransaction}
-        buttonText="Add transaction"
+        // onClickHandler={handleAddTransaction}
+        // buttonText="Add transaction"
       />
     </>
   );
