@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { format } from "date-fns";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const ProfileForm = ({ user, form }: { user: any; form: any }) => {
   const {
@@ -23,6 +24,7 @@ const ProfileForm = ({ user, form }: { user: any; form: any }) => {
     formState: { errors },
   } = form;
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     if (!user) return;
@@ -49,6 +51,7 @@ const ProfileForm = ({ user, form }: { user: any; form: any }) => {
       } else {
         toast.success("Profile updated");
         reset(data);
+        router.refresh();
       }
     } catch (err: any) {
       toast.error(err.message);
