@@ -7,3 +7,6 @@ export const addAccountAPI = (data: CreateAccountDto) => {
 export const editAccountAPI = (id: string, data: UpdateAccountDto) => {
   return clientApi.patch(`/account/details/${id}`, data);
 };
+export const deleteAccountAPI = (id: string) => {
+  return clientApi.delete(`/account/details/${id}`);
+};

@@ -7,13 +7,17 @@ import {
   CreditCard,
   Landmark,
   QrCode,
+  Trash2,
 } from "lucide-react";
 import styles from "./AccountCard.module.css";
 import { formatCurrency } from "@/lib/utils";
 import { Account } from "@/app/_types/accounts";
 import { ConfirmDialog } from "@/app/_components/ConfirmDialog/ConfirmDialog";
 import { useAppDispatch } from "@/app/_feature/hooks";
-import { updateAccount } from "@/app/_feature/account/accountThunk";
+import {
+  deleteAccount,
+  updateAccount,
+} from "@/app/_feature/account/accountThunk";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Dispatch, SetStateAction } from "react";
@@ -82,6 +86,21 @@ const AccountCard = ({
     }
   };
 
+  const handleDeleteAccount = async () => {
+    try {
+      const id = data?.id;
+      const res = await dispatch(deleteAccount({ id }));
+      router.refresh();
+      if (!res?.payload?.success) {
+        toast.error(`Failed to delete account. Please try again.`);
+      } else {
+        toast.success(`Account deleted`);
+      }
+    } catch (err: any) {
+      toast.error(err.message);
+    }
+  };
+
   return (
     <div className={styles["stat-card"]}>
       <div
@@ -138,14 +157,24 @@ const AccountCard = ({
               icon={<Check />}
             />
           )}
-          {/* // !TODO: Delete account in phase 2 */}
-          {/* <button
-            className={
-              styles["acc-act-btn"] + " " + styles["del-acc"] + " ml-auto"
+          <ConfirmDialog
+            trigger={
+              <button
+                className={
+                  styles["acc-act-btn"] + " " + styles["del-acc"] + " ml-auto"
+                }
+              >
+                Delete
+              </button>
             }
-          >
-            Delete
-          </button> */}
+            title="Delete account?"
+            description={`"${data?.name}" will be permanently deleted.
+            Your transactions from this account will be kept but unlinked.`}
+            confirmText="Delete account"
+            onConfirm={handleDeleteAccount}
+            icon={<Trash2 />}
+            isDanger={true}
+          />
         </div>
       </div>
     </div>

@@ -1,5 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { addAccountAPI, editAccountAPI } from "./accountService";
+import {
+  addAccountAPI,
+  deleteAccountAPI,
+  editAccountAPI,
+} from "./accountService";
 import { CreateAccountDto, UpdateAccountDto } from "@/app/_types/accounts";
 
 export const addAccount = createAsyncThunk(
@@ -25,6 +29,21 @@ export const updateAccount = createAsyncThunk(
   ) => {
     try {
       const res = await editAccountAPI(id, data);
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue({
+        message: err.response?.data?.message,
+        status: err.response?.status,
+      });
+    }
+  },
+);
+
+export const deleteAccount = createAsyncThunk(
+  "account/delete",
+  async ({ id }: { id: string }, { rejectWithValue }) => {
+    try {
+      const res = await deleteAccountAPI(id);
       return res.data;
     } catch (err: any) {
       return rejectWithValue({

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ApiError } from "@/app/_utils/constants";
-import { addAccount, updateAccount } from "./accountThunk";
+import { addAccount, deleteAccount, updateAccount } from "./accountThunk";
 import { Account } from "@/app/_types/accounts";
 
 interface AccountState {
@@ -52,6 +52,19 @@ const accountSlice = createSlice({
         }
       })
       .addCase(updateAccount.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as ApiError;
+      })
+
+      // DELETE
+      .addCase(deleteAccount.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteAccount.fulfilled, (state, action) => {
+        state.loading = false;
+        state.accounts = state.accounts.filter((t) => t.id !== action.payload);
+      })
+      .addCase(deleteAccount.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as ApiError;
       });
