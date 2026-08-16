@@ -55,17 +55,17 @@ function Calendar({
         ),
         month: cn("flex w-full flex-col gap-4", defaultClassNames.month),
         nav: cn(
-          "absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1",
+          "absolute inset-x-0 top-0 flex w-full items-center justify-between gap-[10rem]",
           defaultClassNames.nav,
         ),
         button_previous: cn(
           buttonVariants({ variant: buttonVariant }),
-          "size-(--cell-size) p-0 select-none aria-disabled:opacity-50",
+          "size-(--cell-size) p-0 select-none aria-disabled:opacity-50 hover:!bg-transparent",
           defaultClassNames.button_previous,
         ),
         button_next: cn(
           buttonVariants({ variant: buttonVariant }),
-          "size-(--cell-size) p-0 select-none aria-disabled:opacity-50",
+          "size-(--cell-size) p-0 select-none aria-disabled:opacity-50 hover:!bg-transparent",
           defaultClassNames.button_next,
         ),
         month_caption: cn(
@@ -218,6 +218,8 @@ function CalendarDayButton({
       data-range-middle={modifiers.range_middle}
       className={cn(
         `relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal
+          hover:bg-[var(--color-ind)]
+          hover:text-white
 
         data-[selected-single=true]:bg-[var(--color-ind)]
         data-[selected-single=true]:color-card
