@@ -50,7 +50,7 @@ export default function LoginPage() {
           <p className="text-[11px] font-semibold text-indigo-600 uppercase tracking-[0.1em] mb-2">
             Welcome back
           </p>
-          <h2 className="font-['DM_Sans'] text-[28px] font-medium tracking-tight text-stone-900 mb-1">
+          <h2 className="font-[var(--font-display)] text-[28px] font-medium tracking-tight text-stone-900 mb-1">
             Sign in
           </h2>
           <p className="text-[13px] text-stone-400 leading-relaxed mb-7">
