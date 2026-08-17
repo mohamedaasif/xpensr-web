@@ -36,7 +36,7 @@ const TransactionClient = ({
   data,
   accountsData,
 }: {
-  data: Transaction;
+  data: Transaction[];
   accountsData: Account[] | null;
 }) => {
   const router = useRouter();
@@ -125,7 +125,7 @@ const TransactionClient = ({
       <Header
         title={"Transactions"}
         onClickHandler={handleAddTransaction}
-        buttonText="Add transaction"
+        buttonText={accountsData?.length ? "Add transaction" : ""}
       />
       <AppDrawer
         open={open}
@@ -155,12 +155,48 @@ const TransactionClient = ({
         />
       </AppDrawer>
       <div className="p-5 flex-1 overflow-y-auto">
-        <Table
-          data={data}
-          handleEditTransaction={handleEditTransaction}
-          handleDeleteTransaction={handleDeleteTransaction}
-          isAction={true}
-        />
+        {accountsData?.length && (
+          <Table
+            data={data}
+            handleEditTransaction={handleEditTransaction}
+            handleDeleteTransaction={handleDeleteTransaction}
+            isAction={true}
+          />
+        )}
+        {!accountsData?.length && !data?.length && (
+          <div className="overflow-hidden rounded-[11px] border-[0.5px] border-[var(--color-bdr)] bg-[var(--color-card)]">
+            <div className="px-4 py-[50px]">
+              <div className="flex h-[72px] w-[72px] items-center justify-center rounded-[18px] bg-[var(--color-card-2)] mx-auto">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                  <path
+                    d="M4 3.5h8M4 6.5h8M4 9.5h8M1.5 3.5h.5M1.5 6.5h.5M1.5 9.5h.5"
+                    stroke="var(--color-ink-3)"
+                    strokeWidth="1.3"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
+
+              <div className="mt-[14px] mb-[5px] font-[var(--font-display)] text-[15px] font-medium tracking-[-0.2px] text-[var(--color-ink)] text-center">
+                No transactions
+              </div>
+
+              <div className="mx-auto mb-[18px] text-center text-[12px] leading-[1.65] text-[var(--color-ink-3)]">
+                Add an account first, then record your <br></br>expenses and
+                income here.
+              </div>
+
+              <div className="flex justify-center">
+                <button
+                  className="btn-primary"
+                  onClick={() => router.push("/accounts")}
+                >
+                  Add account
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

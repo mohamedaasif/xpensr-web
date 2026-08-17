@@ -24,16 +24,18 @@ const Dashboard = async () => {
       <div className="p-5 flex-1 overflow-y-auto flex flex-col gap-5">
         {isNewUser && <WelcomeBanner />}
 
-        {(!hasAccounts || !hasTransactions) && (
+        {!hasAccounts && !hasTransactions && (
           <SetupChecklist
             hasAccounts={hasAccounts}
             hasTransactions={hasTransactions}
           />
         )}
-        <Suspense fallback={<DashboardSummarySkeleton />}>
-          <DashboardSummary />
-        </Suspense>
-        <RecentTransaction />
+        {!isNewUser && (
+          <Suspense fallback={<DashboardSummarySkeleton />}>
+            <DashboardSummary />
+          </Suspense>
+        )}
+        {!isNewUser && <RecentTransaction />}
       </div>
     </div>
   );
