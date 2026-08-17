@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import AccountGuide from "./AccountGuide";
 
 const accountSchema = z.object({
   accountType: z.string().trim().nonempty("Select account type"),
@@ -114,7 +115,31 @@ const AccountsClient = ({ data }: { data: Account[] }) => {
             />
           );
         })}
+        <div
+          className="flex max-h-[225px] cursor-pointer flex-col items-center justify-center gap-[7px] rounded-[11px] border-[0.5px] border-dashed border-[var(--color-bdr-2)] bg-[var(--color-card-2)] transition-all duration-150 hover:border-[var(--color-ind)] hover:bg-[var(--color-ind-bg)]"
+          onClick={() => setOpen(true)}
+        >
+          <div className="flex h-[32px] w-[32px] items-center justify-center rounded-full border-[0.5px] border-[var(--color-bdr)] bg-[var(--color-card-2)]">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path
+                d="M6 1v10M1 6h10"
+                stroke="var(--color-ink-3)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+          </div>
+
+          <div className="text-[11px] text-[var(--color-ink-3)]">
+            Add account
+          </div>
+        </div>
       </div>
+      {!data?.length && (
+        <div className="p-5">
+          <AccountGuide />
+        </div>
+      )}
     </div>
   );
 };
