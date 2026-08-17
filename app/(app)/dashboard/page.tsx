@@ -14,8 +14,8 @@ const Dashboard = async () => {
     getAllTransactions().catch(() => []),
   ]);
 
-  const hasAccounts = accounts.length > 0;
-  const hasTransactions = transactions.length > 0;
+  const hasAccounts = accounts?.data?.length > 0;
+  const hasTransactions = transactions?.data?.length > 0;
   const isNewUser = !hasAccounts && !hasTransactions;
 
   return (

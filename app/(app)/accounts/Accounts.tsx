@@ -116,7 +116,7 @@ const AccountsClient = ({ data }: { data: Account[] }) => {
           );
         })}
         <div
-          className="flex max-h-[225px] cursor-pointer flex-col items-center justify-center gap-[7px] rounded-[11px] border-[0.5px] border-dashed border-[var(--color-bdr-2)] bg-[var(--color-card-2)] transition-all duration-150 hover:border-[var(--color-ind)] hover:bg-[var(--color-ind-bg)]"
+          className="flex min-h-[225px] cursor-pointer flex-col items-center justify-center gap-[7px] rounded-[11px] border-[0.5px] border-dashed border-[var(--color-bdr-2)] bg-[var(--color-card-2)] transition-all duration-150 hover:border-[var(--color-ind)] hover:bg-[var(--color-ind-bg)]"
           onClick={() => setOpen(true)}
         >
           <div className="flex h-[32px] w-[32px] items-center justify-center rounded-full border-[0.5px] border-[var(--color-bdr)] bg-[var(--color-card-2)]">
