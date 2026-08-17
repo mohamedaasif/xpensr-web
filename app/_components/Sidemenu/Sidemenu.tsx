@@ -26,7 +26,7 @@ const Sidemenu = async () => {
 
         <div>
           <div className={styles["sb-divider"] + " my-1"} />
-          <div className="flex gap-2 items-center py-4 pl-4">
+          <div className="flex justify-between items-center py-4 pl-4 pr-2">
             <div className="flex gap-2">
               <div className={styles["sb-av"]}>
                 {(user.firstName?.[0] ?? "") + (user.lastName?.[0] ?? "")}
