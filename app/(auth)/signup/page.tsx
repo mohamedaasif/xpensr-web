@@ -158,7 +158,7 @@ export default function SignUpPage() {
                 <input
                   id="firstName"
                   type="text"
-                  placeholder="Mohamed"
+                  placeholder="John"
                   autoComplete="given-name"
                   className={inputCls(!!errors.firstName)}
                   {...register("firstName")}
@@ -179,7 +179,7 @@ export default function SignUpPage() {
                 <input
                   id="lastName"
                   type="text"
-                  placeholder="Aasif"
+                  placeholder="Doe"
                   autoComplete="family-name"
                   className={inputCls(!!errors.lastName)}
                   {...register("lastName")}
