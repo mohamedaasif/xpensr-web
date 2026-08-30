@@ -59,7 +59,11 @@ const Table = (props: any) => {
                 className={
                   styles["pill"] +
                   " " +
-                  (data?.type === "Income" ? styles["pi"] : styles["pe"])
+                  (data?.type === "Income"
+                    ? styles["pi"]
+                    : data?.type === "Expense"
+                      ? styles["pe"]
+                      : styles["pt"])
                 }
               >
                 {data?.type}
@@ -85,10 +89,19 @@ const Table = (props: any) => {
                 className={
                   styles["amt"] +
                   " " +
-                  (data?.type === "Income" ? styles["ap"] : styles["an"])
+                  (data?.type === "Income"
+                    ? styles["ap"]
+                    : data?.type === "Expense"
+                      ? styles["an"]
+                      : styles["at"])
                 }
               >
-                {data?.type === "Income" ? "+" : "-"}₹{data?.amount}
+                {data?.type === "Income"
+                  ? "+"
+                  : data?.type === "Expense"
+                    ? "-"
+                    : ""}
+                ₹{data?.amount}
               </div>
               {isAction && (
                 <div className="flex gap-2">
