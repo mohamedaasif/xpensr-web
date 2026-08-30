@@ -2,6 +2,7 @@ export interface Transaction {
   id: string;
   userId: string;
   accountId: string;
+  toAccountId: string;
   type: string;
   amount: number;
   description: string;

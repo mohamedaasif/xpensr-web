@@ -15,9 +15,9 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/app/_feature/hooks";
 
-const transactionSchema = z.object({
+const transactionBaseSchema = z.object({
   type: z.string().trim().nonempty("Select payment type"),
-  paymentMethod: z.string().trim().nonempty("Select payemnt method"),
+  paymentMethod: z.string().trim().nonempty("Select payment method"),
   description: z.string().trim().nonempty("Enter description"),
   amount: z
     .number({ error: "Enter amount" })
@@ -27,8 +27,26 @@ const transactionSchema = z.object({
   location: z.string().trim().optional(),
   referenceNo: z.string().trim().optional(),
   isRecurring: z.boolean().optional(),
-  account: z.string().nonempty("Select bank"),
+  account: z.string().nonempty("Select source account"),
+  toAccount: z.string().optional(),
 });
+
+const transactionSchema = transactionBaseSchema.refine(
+  (data) => data.type !== "Transfer" || !!data.toAccount,
+  {
+    path: ["toAccount"],
+    message: "Select destination account",
+
+    when(payload) {
+      return transactionBaseSchema
+        .pick({
+          type: true,
+          toAccount: true,
+        })
+        .safeParse(payload.value).success;
+    },
+  },
+);
 
 export type TransactionFormValues = z.infer<typeof transactionSchema>;
 
@@ -54,6 +72,7 @@ const TransactionClient = ({
       location: "",
       isRecurring: false,
       account: "",
+      toAccount: "",
     },
   });
 
@@ -80,6 +99,7 @@ const TransactionClient = ({
         location: "",
         isRecurring: false,
         account: "",
+        toAccount: "",
       });
       setEditTransaction(null);
     }
@@ -97,6 +117,7 @@ const TransactionClient = ({
       location: data?.location,
       isRecurring: data?.isRecurring,
       account: data?.accountId,
+      toAccount: data?.toAccountId,
     };
     setEditTransaction(data);
     form.reset({

@@ -42,6 +42,7 @@ const TransactionForm = ({
     register,
     control,
     handleSubmit,
+    watch,
     formState: { errors },
   } = form;
   const dispatch = useAppDispatch();
@@ -54,10 +55,11 @@ const TransactionForm = ({
     })) ?? [];
 
   const onSubmit = async (data: any) => {
-    const { transactionDate, account, ...rest } = data;
+    const { transactionDate, account, toAccount, ...rest } = data;
     const payload = {
       ...rest,
       accountId: account,
+      toAccountId: toAccount,
       transactionDate: format(transactionDate, "MM/dd/yyyy"),
     };
     try {
@@ -88,6 +90,7 @@ const TransactionForm = ({
       toast.error(err.message);
     }
   };
+  const transactionType = watch("type");
   return (
     <div>
       <form id="transaction-form" onSubmit={handleSubmit(onSubmit)}>
@@ -167,7 +170,7 @@ const TransactionForm = ({
           <div className="grid grid-cols-2 gap-4">
             <Field>
               <FieldLabel htmlFor="account" className="form-label">
-                Account*
+                {transactionType === "Transfer" ? "From Account" : "Account"}*
               </FieldLabel>
               <Controller
                 control={control}
@@ -187,7 +190,36 @@ const TransactionForm = ({
                 </FieldDescription>
               )}
             </Field>
-            <Field>
+            {transactionType === "Transfer" && (
+              <Field>
+                <FieldLabel htmlFor="toAccount" className="form-label">
+                  To Account*
+                </FieldLabel>
+                <Controller
+                  control={control}
+                  name="toAccount"
+                  render={({ field, fieldState }) => {
+                    console.log("fieldState", fieldState);
+                    return (
+                      <CustomSelect
+                        options={accountOptions}
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        placeholder="Select account"
+                      />
+                    );
+                  }}
+                />{" "}
+                {errors?.toAccount && (
+                  <FieldDescription className="form-error">
+                    {errors?.toAccount?.message}
+                  </FieldDescription>
+                )}
+              </Field>
+            )}
+            <Field
+              className={transactionType === "Transfer" ? "col-span-2" : ""}
+            >
               <FieldLabel htmlFor="paymentMethod" className="form-label">
                 Payment method*
               </FieldLabel>
