@@ -1,6 +1,7 @@
 "use client";
 
 import AuthLeft from "@/app/_components/AuthLeft/AuthLeft";
+import { Spinner } from "@/app/_components/Spinner/Spinner";
 import { loginUser } from "@/app/_feature/auth/authThunk";
 import { useAppDispatch, useAppSelector } from "@/app/_feature/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -117,14 +118,15 @@ export default function LoginPage() {
                 >
                   Password
                 </label>
-                {/* <button
+                <button
                   type="button"
-                  className="text-[11px] text-indigo-500 hover:text-indigo-700"
+                  className="text-[11px] text-indigo-500 hover:text-indigo-700 cursor-pointer"
                   onClick={() => {
+                    router.replace("/forgot-password");
                   }}
                 >
                   Forgot password?
-                </button> */}
+                </button>
               </div>
               <div className="relative">
                 <input
@@ -188,11 +190,6 @@ export default function LoginPage() {
 }
 
 // ─── icons ────────────────────────────────────────────────────────────────────
-function Spinner() {
-  return (
-    <span className="w-[18px] h-[18px] border-2 border-white/30 border-t-white rounded-full animate-spin" />
-  );
-}
 
 function GoogleIcon() {
   return (

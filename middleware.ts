@@ -14,7 +14,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const isAuthPage = pathname === "/login" || pathname === "/signup";
+  const isAuthPage =
+    pathname === "/login" ||
+    pathname === "/signup" ||
+    pathname === "/forgot-password";
 
   if (token && isAuthPage) {
     return NextResponse.redirect(new URL("/dashboard", request.url));

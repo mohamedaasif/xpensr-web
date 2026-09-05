@@ -1,8 +1,11 @@
 "use client";
 
 import AuthLeft from "@/app/_components/AuthLeft/AuthLeft";
+import { Spinner } from "@/app/_components/Spinner/Spinner";
 import { signupUser } from "@/app/_feature/auth/authThunk";
 import { useAppDispatch, useAppSelector } from "@/app/_feature/hooks";
+import { PW_BAR_COLOR, PW_HINT, PW_TEXT_COLOR } from "@/app/_utils/constants";
+import { calcStrength, inputCls } from "@/app/_utils/helper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -30,47 +33,6 @@ const schema = z
   });
 
 type FormInput = z.infer<typeof schema>;
-
-function calcStrength(pw: string): number {
-  let s = 0;
-  if (pw.length >= 8) s++;
-  if (/[A-Z]/.test(pw)) s++;
-  if (/[0-9]/.test(pw)) s++;
-  if (/[^A-Za-z0-9]/.test(pw)) s++;
-  return s;
-}
-
-const PW_HINT = [
-  "At least 8 characters with uppercase, number and symbol.",
-  "Weak — add uppercase and numbers.",
-  "Fair — add a special character (!@#$%).",
-  "Good — almost there!",
-  "Strong password ✓",
-];
-
-const PW_BAR_COLOR = [
-  "bg-stone-200",
-  "bg-red-500",
-  "bg-amber-500",
-  "bg-blue-500",
-  "bg-emerald-500",
-];
-
-const PW_TEXT_COLOR = [
-  "text-stone-400",
-  "text-red-500",
-  "text-amber-600",
-  "text-blue-500",
-  "text-emerald-600",
-];
-
-function inputCls(hasError: boolean) {
-  return `w-full h-[42px] border rounded-[10px] px-3 text-[13px] text-stone-900 bg-white outline-none transition-all placeholder:text-stone-300 ${
-    hasError
-      ? "border-red-400 focus:border-red-400 focus:ring-2 focus:ring-red-100"
-      : "border-stone-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
-  }`;
-}
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -381,11 +343,6 @@ export default function SignUpPage() {
 }
 
 // ─── icons ────────────────────────────────────────────────────────────────────
-function Spinner() {
-  return (
-    <span className="w-[18px] h-[18px] border-2 border-white/30 border-t-white rounded-full animate-spin" />
-  );
-}
 
 function GoogleIcon() {
   return (

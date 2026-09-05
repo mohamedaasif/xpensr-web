@@ -3,7 +3,7 @@
 import Image from "next/image";
 import logo from "@/public/logo.png";
 
-type AuthVariant = "signin" | "signup";
+type AuthVariant = "signin" | "signup" | "forgotPassword";
 
 interface AuthLeftProps {
   variant: AuthVariant;
@@ -46,6 +46,33 @@ const CONTENT = {
       { val: "Free", label: "no credit card" },
       { val: "INR", label: "native support" },
       { val: "6", label: "account types" },
+    ],
+  },
+  forgotPassword: {
+    eyebrow: "Account Recovery",
+    headline: ["Reset your", "password."],
+    sub: "We'll send a 6-digit code to your email. Enter it on the next screen to set a new password.",
+    features: [
+      {
+        icon: "1",
+        title: "Enter your email",
+        desc: "We send a 6-digit code to this address",
+      },
+      {
+        icon: "2",
+        title: "Enter the 6-digit code",
+        desc: "Enter the 6-digit code from your email",
+      },
+      {
+        icon: "3",
+        title: "Set new password",
+        desc: "Choose a strong password to secure your account",
+      },
+    ],
+    stats: [
+      { val: "6", label: "digit code" },
+      { val: "5 min", label: "code expiry" },
+      { val: "100%", label: "secure" },
     ],
   },
 };
@@ -133,14 +160,14 @@ export default function AuthLeft({ variant }: AuthLeftProps) {
       {/* ── hero text ── */}
       <div className="relative z-10">
         <p
-          className="text-[11px] font-medium uppercase mb-3.5"
+          className="text-[11px] font-[var(--font-ui)] font-medium uppercase mb-3.5"
           style={{ color: "rgba(255,255,255,0.4)", letterSpacing: "0.13em" }}
         >
           {content.eyebrow}
         </p>
 
         <h1
-          className="font-['DM_Sans'] text-[36px] font-medium leading-[1.15] mb-4"
+          className="font-[var(--font-display)] text-[36px] font-medium leading-[1.15] mb-4"
           style={{ letterSpacing: "-0.9px", color: "#ffffff" }}
         >
           {content.headline[0]}
@@ -151,7 +178,7 @@ export default function AuthLeft({ variant }: AuthLeftProps) {
         </h1>
 
         <p
-          className="text-[14px] leading-[1.68] max-w-[340px]"
+          className="font-[var(--font-ui)] text-[14px] leading-[1.68] max-w-[340px]"
           style={{ color: "rgba(255,255,255,0.48)" }}
         >
           {content.sub}
@@ -163,7 +190,7 @@ export default function AuthLeft({ variant }: AuthLeftProps) {
             {content.features.map((f) => (
               <li key={f.title} className="flex items-start gap-3">
                 <span
-                  className="text-[10px] mt-[3px] flex-shrink-0"
+                  className="font-[var(--font-ui)] text-[10px] mt-[3px] flex-shrink-0"
                   style={{ color: "#818CF8" }}
                   aria-hidden="true"
                 >
@@ -171,13 +198,13 @@ export default function AuthLeft({ variant }: AuthLeftProps) {
                 </span>
                 <div>
                   <span
-                    className="block text-[13px] font-medium mb-0.5"
+                    className="font-[var(--font-ui)] block text-[13px] font-medium mb-0.5"
                     style={{ color: "rgba(255,255,255,0.85)" }}
                   >
                     {f.title}
                   </span>
                   <span
-                    className="block text-[11px] leading-relaxed"
+                    className="font-[var(--font-ui)] block text-[11px] leading-relaxed"
                     style={{ color: "rgba(255,255,255,0.38)" }}
                   >
                     {f.desc}
@@ -219,7 +246,7 @@ export default function AuthLeft({ variant }: AuthLeftProps) {
                 Card · Axis Bank
               </p>
               <p
-                className="font-['JetBrains_Mono'] text-[18px] font-medium text-white"
+                className="font-[var(--font-mono)] text-[18px] font-medium text-white"
                 style={{ letterSpacing: "-0.4px" }}
               >
                 ₹76,530
@@ -266,7 +293,7 @@ export default function AuthLeft({ variant }: AuthLeftProps) {
                   {t.desc}
                 </span>
                 <span
-                  className="font-['JetBrains_Mono'] text-[10px] font-medium flex-shrink-0"
+                  className="font-[var(--font-mono)] text-[10px] font-medium flex-shrink-0"
                   style={{ color: t.positive ? "#34D399" : "#F87171" }}
                 >
                   {t.amt}
@@ -282,13 +309,13 @@ export default function AuthLeft({ variant }: AuthLeftProps) {
         {content.stats.map((s) => (
           <div key={s.label}>
             <p
-              className="font-['JetBrains_Mono'] text-[19px] font-medium text-white"
+              className="font-[var(--font-mono)] text-[19px] font-medium text-white"
               style={{ letterSpacing: "-0.4px" }}
             >
               {s.val}
             </p>
             <p
-              className="text-[11px] mt-0.5"
+              className="font-[var(--font-ui)] text-[11px] mt-0.5"
               style={{ color: "rgba(255,255,255,0.38)" }}
             >
               {s.label}

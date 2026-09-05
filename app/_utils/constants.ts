@@ -66,3 +66,27 @@ export const CURRENCY = ["INR", "USD"];
 export const TRANSACTION_TYPES = ["Expense", "Income", "Transfer"];
 
 export const PAYMENT_METHOD = ["UPI", "Cash", "Card", "BankTransfer", "Cheque"];
+
+export const PW_HINT = [
+  "At least 8 characters with uppercase, number and symbol.",
+  "Weak — add uppercase and numbers.",
+  "Fair — add a special character (!@#$%).",
+  "Good — almost there!",
+  "Strong password ✓",
+];
+
+export const PW_BAR_COLOR = [
+  "bg-stone-200",
+  "bg-red-500",
+  "bg-amber-500",
+  "bg-blue-500",
+  "bg-emerald-500",
+];
+
+export const PW_TEXT_COLOR = [
+  "text-stone-400",
+  "text-red-500",
+  "text-amber-600",
+  "text-blue-500",
+  "text-emerald-600",
+];
