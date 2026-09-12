@@ -3,7 +3,10 @@
 import AuthLeft from "@/app/_components/AuthLeft/AuthLeft";
 import { Spinner } from "@/app/_components/Spinner/Spinner";
 import { useAppDispatch, useAppSelector } from "@/app/_feature/hooks";
-import { setStep } from "@/app/_feature/resetPassword/resetPasswordSlice";
+import {
+  resetResetPasswordState,
+  setStep,
+} from "@/app/_feature/resetPassword/resetPasswordSlice";
 import {
   requestOTP,
   resendOTP,
@@ -114,19 +117,60 @@ const ForgotPasswordPage = () => {
   const pwValue = watchPassword("password", "");
 
   const handleEmail = async (data: EmailFormInput) => {
-    await dispatch(requestOTP({ emailId: data.email }));
+    try {
+      const response = await dispatch(
+        requestOTP({ emailId: data.email }),
+      ).unwrap();
+
+      toast.success(response.message);
+    } catch (error) {
+      toast.error(
+        (error as { message?: string })?.message ?? "Unable to send OTP.",
+      );
+    }
   };
 
   const handleResendOTP = async () => {
-    await dispatch(resendOTP({ emailId }));
+    try {
+      const response = await dispatch(resendOTP({ emailId })).unwrap();
+
+      toast.success(response.message);
+    } catch (error) {
+      toast.error(
+        (error as { message?: string })?.message ?? "Unable to resend OTP.",
+      );
+    }
   };
 
   const handleOTP = async (data: OtpFormInput) => {
-    await dispatch(verifyOTP({ emailId: emailId, otp: data.otp }));
+    try {
+      const response = await dispatch(
+        verifyOTP({
+          emailId,
+          otp: data.otp,
+        }),
+      ).unwrap();
+
+      toast.success(response.message);
+    } catch (error) {
+      toast.error(
+        (error as { message?: string })?.message ?? "OTP verification failed.",
+      );
+    }
   };
 
   const handlePassword = async (data: passwordFormInput) => {
-    await dispatch(resetPassword({ password: data.password }));
+    try {
+      await dispatch(
+        resetPassword({
+          password: data.password,
+        }),
+      );
+    } catch (error) {
+      toast.error(
+        (error as { message?: string })?.message ?? "Unable to reset password.",
+      );
+    }
   };
 
   return (
@@ -148,7 +192,10 @@ const ForgotPasswordPage = () => {
             </div>
             <button
               className="w-full h-[42px] bg-indigo-600 hover:bg-indigo-800 text-white text-[13px] font-medium rounded-[10px] transition-colors flex items-center justify-center"
-              onClick={() => router.replace("/login")}
+              onClick={() => {
+                dispatch(resetResetPasswordState());
+                router.replace("/login");
+              }}
             >
               Sign in →
             </button>
