@@ -19,6 +19,8 @@ type ResetPasswordState = {
   loading: boolean;
   error: string | null;
   success: boolean;
+
+  resendLoading: boolean;
 };
 
 const initialState: ResetPasswordState = {
@@ -31,6 +33,8 @@ const initialState: ResetPasswordState = {
   loading: false,
   error: null,
   success: false,
+
+  resendLoading: false,
 };
 
 const resetPasswordSlice = createSlice({
@@ -87,12 +91,12 @@ const resetPasswordSlice = createSlice({
 
     builder
       .addCase(resendOTP.pending, (state) => {
-        state.loading = true;
+        state.resendLoading = true;
         state.error = null;
       })
 
       .addCase(resendOTP.fulfilled, (state, action) => {
-        state.loading = false;
+        state.resendLoading = false;
         state.error = null;
 
         const data = action.payload.data;
@@ -104,7 +108,7 @@ const resetPasswordSlice = createSlice({
       })
 
       .addCase(resendOTP.rejected, (state, action) => {
-        state.loading = false;
+        state.resendLoading = false;
 
         const payload = action.payload as
           | {

@@ -14,3 +14,10 @@ export function inputCls(hasError: boolean) {
       : "border-stone-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
   }`;
 }
+
+export const formatTime = (seconds: number) => {
+  const minutes = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+
+  return `${minutes}:${secs.toString().padStart(2, "0")}`;
+};

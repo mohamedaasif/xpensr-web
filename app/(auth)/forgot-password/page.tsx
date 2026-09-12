@@ -3,13 +3,16 @@
 import AuthLeft from "@/app/_components/AuthLeft/AuthLeft";
 import { Spinner } from "@/app/_components/Spinner/Spinner";
 import { useAppDispatch, useAppSelector } from "@/app/_feature/hooks";
+import { setStep } from "@/app/_feature/resetPassword/resetPasswordSlice";
 import {
   requestOTP,
+  resendOTP,
   resetPassword,
   verifyOTP,
 } from "@/app/_feature/resetPassword/resetPasswordThunk";
+import { useCountdown } from "@/app/_hooks/useCountDown";
 import { PW_BAR_COLOR, PW_HINT, PW_TEXT_COLOR } from "@/app/_utils/constants";
-import { calcStrength, inputCls } from "@/app/_utils/helper";
+import { calcStrength, formatTime, inputCls } from "@/app/_utils/helper";
 import {
   InputOTP,
   InputOTPGroup,
@@ -67,10 +70,14 @@ const ForgotPasswordPage = () => {
     loading,
     error,
     success,
+    resendLoading,
   } = useAppSelector((state) => state.resetPassword);
   const [showPw, setShowPw] = useState(false);
   const [showConfirmPw, setShowConfirmPw] = useState(false);
   const [pwStrength, setPwStrength] = useState(0);
+
+  const otpRemaining = useCountdown(otpExpiresAt);
+  const resendRemaining = useCountdown(resendAvailableAt);
 
   const {
     register: registerEmail,
@@ -108,6 +115,10 @@ const ForgotPasswordPage = () => {
 
   const handleEmail = async (data: EmailFormInput) => {
     await dispatch(requestOTP({ emailId: data.email }));
+  };
+
+  const handleResendOTP = async () => {
+    await dispatch(resendOTP({ emailId }));
   };
 
   const handleOTP = async (data: OtpFormInput) => {
@@ -246,7 +257,7 @@ const ForgotPasswordPage = () => {
                   >
                     Enter the 6-digit code{" "}
                     <span className="text-[var(--color-ink-3)] font-normal">
-                      · expires in 0:00
+                      `· expires in {formatTime(otpRemaining)}`
                     </span>
                   </label>
                   <Controller
@@ -287,13 +298,21 @@ const ForgotPasswordPage = () => {
                 </form>
                 <p className="text-[13px] text-stone-400 text-center mt-6">
                   Didn't get it?{" "}
-                  <button className="text-indigo-600 font-medium hover:text-indigo-800 cursor-pointer">
-                    Resend code
+                  <button
+                    disabled={resendRemaining > 0 || loading}
+                    className={`${resendRemaining > 0 ? "text-[var(--color-ink-3)] font-normal" : "text-indigo-600 font-medium hover:text-indigo-800 cursor-pointer"} `}
+                    onClick={handleResendOTP}
+                  >
+                    {resendLoading
+                      ? "Resending..."
+                      : resendRemaining > 0
+                        ? `Resend code in ${formatTime(resendRemaining)}`
+                        : "Resend code"}
                   </button>
                 </p>
                 <button
                   className="mt-2 text-[13px] w-full m-auto text-indigo-600 font-medium hover:text-indigo-800 cursor-pointer"
-                  // onClick={() => setStep(1)}
+                  onClick={() => dispatch(setStep(1))}
                 >
                   ← Use a different email
                 </button>
