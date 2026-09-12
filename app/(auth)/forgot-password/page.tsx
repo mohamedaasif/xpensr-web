@@ -3,6 +3,11 @@
 import AuthLeft from "@/app/_components/AuthLeft/AuthLeft";
 import { Spinner } from "@/app/_components/Spinner/Spinner";
 import { useAppDispatch, useAppSelector } from "@/app/_feature/hooks";
+import {
+  requestOTP,
+  resetPassword,
+  verifyOTP,
+} from "@/app/_feature/resetPassword/resetPasswordThunk";
 import { PW_BAR_COLOR, PW_HINT, PW_TEXT_COLOR } from "@/app/_utils/constants";
 import { calcStrength, inputCls } from "@/app/_utils/helper";
 import {
@@ -17,6 +22,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z from "zod";
 
 const emailSchema = z.object({
@@ -53,13 +59,18 @@ type passwordFormInput = z.infer<typeof passwordSchema>;
 const ForgotPasswordPage = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector((store) => store.auth);
-  const [email, setEmail] = useState("");
+  const {
+    emailId,
+    step,
+    otpExpiresAt,
+    resendAvailableAt,
+    loading,
+    error,
+    success,
+  } = useAppSelector((state) => state.resetPassword);
   const [showPw, setShowPw] = useState(false);
   const [showConfirmPw, setShowConfirmPw] = useState(false);
   const [pwStrength, setPwStrength] = useState(0);
-  const [step, setStep] = useState(1);
-  const [isPasswordUpdated, setIsPasswordUpdated] = useState(false);
 
   const {
     register: registerEmail,
@@ -96,31 +107,22 @@ const ForgotPasswordPage = () => {
   const pwValue = watchPassword("password", "");
 
   const handleEmail = async (data: EmailFormInput) => {
-    setEmail(data?.email);
-    setStep(2);
-    // const result = await dispatch(
-    //   loginUser({ emailId: data.email, password: data.password }),
-    // );
-    // if (loginUser.fulfilled.match(result)) {
-    //   router.replace("/dashboard");
-    // }
+    await dispatch(requestOTP({ emailId: data.email }));
   };
 
   const handleOTP = async (data: OtpFormInput) => {
-    console.log("data", data?.otp);
-    setStep(3);
+    await dispatch(verifyOTP({ emailId: emailId, otp: data.otp }));
   };
 
   const handlePassword = async (data: passwordFormInput) => {
-    console.log("data", data);
-    setIsPasswordUpdated(true);
+    await dispatch(resetPassword({ password: data.password }));
   };
 
   return (
     <main className="grid grid-cols-2 min-h-screen">
       <AuthLeft variant="forgotPassword" />
 
-      {isPasswordUpdated ? (
+      {success ? (
         <div className="flex items-center justify-center bg-white px-12 py-10">
           <div className="w-full max-w-sm">
             <div className="w-14 h-14 rounded-full bg-[var(--color-pos-bg)] flex items-center justify-center mx-auto mb-[18px] text-[var(--color-pos)]">
@@ -173,7 +175,7 @@ const ForgotPasswordPage = () => {
             border-[0.5px] border-[var(--color-ind-border)] mb-4"
               >
                 <Mail size={12} />
-                <span>{email}</span>
+                <span>{emailId}</span>
               </div>
             )}
 
@@ -291,7 +293,7 @@ const ForgotPasswordPage = () => {
                 </p>
                 <button
                   className="mt-2 text-[13px] w-full m-auto text-indigo-600 font-medium hover:text-indigo-800 cursor-pointer"
-                  onClick={() => setStep(1)}
+                  // onClick={() => setStep(1)}
                 >
                   ← Use a different email
                 </button>

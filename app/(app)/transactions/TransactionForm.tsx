@@ -199,7 +199,6 @@ const TransactionForm = ({
                   control={control}
                   name="toAccount"
                   render={({ field, fieldState }) => {
-                    console.log("fieldState", fieldState);
                     return (
                       <CustomSelect
                         options={accountOptions}
